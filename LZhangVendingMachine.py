@@ -53,7 +53,7 @@ while(kim == 0):
 					globalremainingmoney = cost-8;
 					newitem=1;
 				else: 
-					print("Thank you for your time. ")
+					print("Thank you for your time. You have recieved " + str(cost-8) + "$ change");
 					exit();
 			else: 
 				print("You have insufficient money")
@@ -64,11 +64,11 @@ while(kim == 0):
 				yesorno = input("Would you like to buy another item? (y/n)");
 				if(yesorno == "y"):
 					print("Okay, restocking vending machine.....")
-					cost = cost-2;
-					globalremainingmoney = cost-2;
+					cost = cost-3;
+					globalremainingmoney = cost-3;
 					newitem=1;
 				else: 
-					print("Thank you for your time. ")
+					print("Thank you for your time. You have recieved " + str(cost-3) + " change");
 					exit();
 			else: 
 				print("You have insufficient money")
@@ -83,7 +83,7 @@ while(kim == 0):
 					globalremainingmoney = cost-5;
 					newitem=1;
 				else: 
-					print("Thank you for your time. ")
+					print("Thank you for your time. You have recieved " + str(cost-5) + " change");
 					exit();
 			else: 
 				print("You have insufficient money")
@@ -97,7 +97,7 @@ while(kim == 0):
 					globalremainingmoney = cost-5;
 					newitem = 1;
 				else: 
-					print("Thank you for your time. ")
+					print("Thank you for your time. You have recieved " + str(cost-5) + " change");
 					exit();
 			else: 
 				print("You have insufficient money")
