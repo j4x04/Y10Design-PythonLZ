@@ -64,7 +64,6 @@ while(kim == 0):
 				yesorno = input("Would you like to buy another item? (y/n)");
 				if(yesorno == "y"):
 					print("Okay, restocking vending machine.....")
-					cost = cost-3;
 					globalremainingmoney = cost-3;
 					newitem=1;
 				else: 
