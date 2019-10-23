@@ -6,6 +6,7 @@
 import requests
 import os
 import tkinter as tk
+import webbrowser
 from tkinter import * 
 
 
@@ -187,7 +188,7 @@ body .ui_box:hover {
 
 <div class="title">
   <h1 id = username>
-    News!
+    NewsProvider 2.0 - Made with <a href="https://newsapi.org/">NewsApi</a>
   </h1>
 </div>
  
@@ -312,10 +313,15 @@ def writefile(jsonfile):
 		myfile.write('<h2 id = text1> ' + str(val["title"]) + ' </h2>');
 		myfile.write('<p id = sender1>' + str(val["author"]) + '</p>')
 		myfile.write('<p id = sender1>' + str(val["description"]) + '</p>')
-		myfile.write('<button id = "button1" value = \'' + val["source"]["name"] + ' \'	  onclick="location.href=\' ' + val["url"] + '\' "></button>')
+		myfile.write('<button id = "button1"	 onclick="location.href= \' ' + val["url"] + '\' ">  '   +    val["source"]["name"] + '</button>')
 		myfile.write('</div>');
 		myfile.write('</div>');
 	myfile.write(pageend);
+	url = os.getcwd();
+	url = "file://" + str(url) + "/main.html";
+	webbrowser.open(url, new=2);
+	#chrome = webbrowser.get('chrome');
+	#chrome.open(url);
 
 
 
@@ -340,8 +346,31 @@ def writefile(jsonfile):
 def sourcesA(PARAMS): 
 	r = requests.get(url = baseURL+endpoint_sources, params = PARAMS) 
 	data = r.json(); 
-	writefile();
-  
+
+	myfile = open("main.html","a") # use "a" to "append"
+	myfile.write(pagestart);
+
+	if data["status"] != "ok":
+		myfile = open("errorpage.html","w") # use "a" to "append"
+		myfile.write("<h1>Error, please try again</h1>")
+		myfile.close()
+	    #OPEN IT
+	for val in data['sources']:
+		myfile.write('<div class="ui_box" id = "boxnumber1">');
+		myfile.write('<div class="ui_box__inner">')
+		myfile.write('<h2 id = text1> ' + str(val["name"]) + ' </h2>');
+		myfile.write('<p id = sender1>' + str(val["id"]) + '</p>')
+		myfile.write('<p id = sender1>' + str(val["description"]) + '</p>')
+		myfile.write('<button id = "button1" value ="Go to source site"	  onclick="location.href=\' ' + val["url"] + '\' ">' + val["name"] + '</button>')
+		myfile.write('</div>');
+		myfile.write('</div>');
+	myfile.write(pageend);
+	url = os.getcwd();
+	url = "file://" + str(url) + "/main.html";
+	webbrowser.open(url, new=2);	
+	root.destroy();
+
+
 
 
 
@@ -379,6 +408,7 @@ def opentopheadlineparams():
 		top_headlines(PARAMS)
 		top.destroy();
 		root.destroy();
+
 
 
 
@@ -455,6 +485,15 @@ def top_headlines(PARAMS):
 	r = requests.get(url = baseURL+endpoint_topheadlines, params = PARAMS) 
 	data = r.json();
 	writefile(data);
+
+
+
+
+
+
+
+
+
 
 
 
