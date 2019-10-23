@@ -8,6 +8,10 @@ import os
 import tkinter as tk
 from tkinter import * 
 
+
+open("main.html", "w").close()
+
+
 pagestart = """
 
 <!DOCTYPE html>
@@ -17,10 +21,8 @@ pagestart = """
 
 <head>
 
-  <title>IG-SA</title>
+  <title>NewsProvider</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <script src="./lib/jquery-3.4.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
  
 
 <style type="text/css">
@@ -29,10 +31,10 @@ pagestart = """
 
 
 body {
-  background: #ededeb;
+  background-image: linear-gradient(to top right, #A82A71, #4C61B0);
 }
 body .title {
-  width: 600px;
+  width: 800px;
   margin: 0 auto;
   text-align: center; 
 }
@@ -40,17 +42,17 @@ body .title h1 {
   margin: 0px 0px 0px 0px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
-  color: #FFFFFF; 
+  color: #000000; 
 }
 body .title p {
   margin: 10px 0px 0px 0px;
   font-size: 18px;
-  color: #8b8b8b;
+  color: #000000;
   font-weight: 400;
   font-family: 'Source Sans Pro', sans-serif;
 }
 body .ui {
-  width: 450px;
+  width: 750px;
   margin: 0 auto;
   margin-top: 50px;
   font-family: 'Source Sans Pro', sans-serif;
@@ -69,8 +71,8 @@ body .ui .drop p {
   color: #f8fbfa;
 }
 body .ui_box {
-  width: 450px;
-  height: 240px;
+  width: 800px;
+  height: 280px;
   position: relative;
   background: #3d3d3d;
   float: left;
@@ -114,7 +116,7 @@ body .ui_box p {
   color: #b6b6b6;
   clear: left;
   font-weight: 300;
-  width: 160px;
+  width: 750px;
   margin: 2px 0px 15px 0px;
 }
 body .ui_box:hover {
@@ -151,72 +153,13 @@ body .ui_box:hover {
 
 
 
-.popupo {
-  font-family: "Helvetica Neue", sans-serif;
-  width: 100%;
-  color: #666666;
-  text-align: center;;
-}
-
-.popupo .popup-overlay {
-  /*Hides pop-up when there is no "active" class*/
-  visibility: hidden;
-  position: fixed;
-  background: #ffffff;
-  border: 3px solid #666666;
-  width: 73%;
-  height: 90%;
-  left: 25%;
-  z-index: 30;
-}
-
-
-
-.popupo .popup-overlay.active {
-  /*displays pop-up when "active" class is present*/
-  visibility: visible;
-  text-align: center;
-  z-index: 30;
-}
-
-.popupo .popup-content {
-  /*Hides pop-up content when there is no "active" class */
-  visibility: hidden;
-  z-index: 30;
-}
-
-.popupo .popup-content.active {
-  /*Shows pop-up content when "active" class is present */
-  visibility: visible;
-  z-index: 30;
-}
-
-.popupo button {
-  display: inline-block;
-  vertical-align: middle;
-  border-radius: 30px;
-  margin: .20rem;
-  font-size: 1rem;
-  color: #666666;
-  background: #ffffff;
-  border: 1px solid #666666;
-  z-index: 30;
-}
-
-.popupo button:hover {
-  border: 1px solid #666666;
-  background: #666666;
-  color: #ffffff;
-  z-index: 30;
-}
 
 
 
 .ui_box button{
-  border-radius: 10px;
   font-size: 13px;
+  font-colour: #000000;
 }
-
 
 
 
@@ -244,12 +187,11 @@ body .ui_box:hover {
 
 <div class="title">
   <h1 id = username>
-    Username
+    News!
   </h1>
-  <p id = finalValue>Final value statistic</p>
 </div>
  
-
+<div class="ui">
 
 
 
@@ -258,7 +200,7 @@ body .ui_box:hover {
 
 
 pageend = """
-
+</div>
      
 
 </body>
@@ -269,23 +211,21 @@ pageend = """
 
 box = """
 
-<div class="ui">
-
-
 
   <div class="ui_box" id = "boxnumber1">
     <div class="ui_box__inner">
+     
+
+
       <h2 id = text1>
         Message Unavailable
       </h2>
+ 
+
       <p id = sender1>---</p>
-      <div class="stat">
-        <span id = rating1>---</span>
-      </div>
-      <div class="progress" id = "removearea1">
-        <div class="progress_bar" id = "bar1"></div>
-      </div>
-      <button id = "button1" onclick="openpopupo(9)"></button>
+
+
+      <button id = "button1" onclick=""></button>
     </div>
   </div>
 
@@ -293,11 +233,20 @@ box = """
 
 
 
-
-
-</div>
-
 """
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -334,9 +283,54 @@ PARAMS = {'apiKey':apiKey}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 #write the html file
-def writefile():
-	print("jace")
+def writefile(jsonfile):
+	myfile = open("main.html","a") # use "a" to "append"
+	myfile.write(pagestart);
+
+	if jsonfile["status"] != "ok":
+		myfile = open("errorpage.html","w") # use "a" to "append"
+		myfile.write("<h1>Error, please try again</h1>")
+		myfile.close()
+	    #OPEN IT
+	for val in jsonfile['articles']:
+		myfile.write('<div class="ui_box" id = "boxnumber1">');
+		myfile.write('<div class="ui_box__inner">')
+		myfile.write('<h2 id = text1> ' + str(val["title"]) + ' </h2>');
+		myfile.write('<p id = sender1>' + str(val["author"]) + '</p>')
+		myfile.write('<p id = sender1>' + str(val["description"]) + '</p>')
+		myfile.write('<button id = "button1" value = \'' + val["source"]["name"] + ' \'	  onclick="location.href=\' ' + val["url"] + '\' "></button>')
+		myfile.write('</div>');
+		myfile.write('</div>');
+	myfile.write(pageend);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -352,10 +346,116 @@ def sourcesA(PARAMS):
 
 
 
+
+def opentopheadlineparams():
+
+	top = Toplevel();
+
+	btn4 = tk.Button(top, text = "Search", font = ("Arial", 20, "bold"));
+	btn4.config(height = 3, width = 10);
+	btn4.grid(column = 2, row = 5)
+
+	entr = tk.Entry(top)
+	entr.grid(column = 2, row = 4)
+
+
+
+
+
+
+	def search(anotherparam):
+		#print(anotherparam)
+		n = str(entr.get())
+		PARAMS = {'apiKey':apiKey} 
+
+		if anotherparam == "country":
+			PARAMS.update( {'country' : n} )
+		elif anotherparam == "category":
+			PARAMS.update( {'category' : n} )
+		elif anotherparam == "source":
+			PARAMS.update( {'sources' : n} )
+		elif anotherparam == "keywords":
+			PARAMS.update( {'q' : n} )
+		top_headlines(PARAMS)
+		top.destroy();
+		root.destroy();
+
+
+
+
+
+
+
+	def parameterselect(whichparam): 
+		title.config(text = whichparam);
+		if whichparam == "country":
+			instructions.config(text = "Enter the 2-letter ISO 3166-1 code of \nthe country you want to get headlines for. \nPossible options:	ae ar at au be bg br ca ch cn co cu cz de \neg fr gb gr hk hu id ie il in it jp kr \nlt lv ma mx my ng nl no nz ph pl pt ro rs ru sa \nse sg si sk th tr tw ua us ve za")
+			btn4.config(command = lambda: search("country"))
+		elif whichparam == "category":
+			instructions.config(text = "Enter one of the following categories: \nPossible options: business entertainment general health \nscience sports technology")
+			btn4.config(command = lambda: search("category"))
+		elif whichparam == "source":
+			instructions.config(text = "Restart the program and choose the _sources_ \nbutton to see a page with all possible sources.");
+			btn4.config(command = lambda: search("source"))
+		elif whichparam == "keywords":
+			instructions.config(text = "Enter the chosen keyword query: ");
+			btn4.config(command = lambda: search("keywords"))
+
+
+
+
+
+	title = tk.Label(top, text = "Click a Parameter to search using.", fg = "black", font = ("Courier", 20) )
+	title.grid(column = 2, row = 0)
+
+	instructions = tk.Label(top, text = "", fg = "black", font = ("Courier", 20));
+	instructions.grid(column = 2, row = 1)	
+
+	btn1 = tk.Button(top, text = "Country", font = ("Arial", 20, "bold"), command = lambda: parameterselect("country"));
+	btn1.config(height = 3, width = 10)
+	btn1.grid(column = 0, row = 4)
+
+	btn2 = tk.Button(top, text = "Category", font = ("Arial", 20, "bold"), command = lambda: parameterselect("category"));
+	btn2.config(height = 3, width = 10)
+	btn2.grid(column = 1, row = 4)
+
+	btn3 = tk.Button(top, text = "Source", font = ("Arial", 20, "bold"), command = lambda: parameterselect("source"))
+	btn3.config(height = 3, width = 10)
+	btn3.grid(column = 3, row = 4)
+
+
+	btn3b = tk.Button(top, text = "Keywords", font = ("Arial", 20, "bold"), command = lambda: parameterselect("keywords"))
+	btn3b.config(height = 3, width = 10)
+	btn3b.grid(column = 4, row = 4)
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def top_headlines(PARAMS):
 	r = requests.get(url = baseURL+endpoint_topheadlines, params = PARAMS) 
 	data = r.json();
-	print(data)
+	writefile(data);
+
 
 
 
@@ -384,7 +484,37 @@ notify("NewsProvider", "NewsProvider 2.0.0 has been started")
 
 
 root = tk.Tk();
-title = tk.Label(root, text = "NewsProvider 2.0.0", fg = "black", font = ("Courier", 44) );
+
+
+#Title Label
+title = tk.Label(root, text = "NewsProvider 2.0.0", fg = "black", font = ("Courier", 44) )
+title.grid(column = 2, row = 0)
+
+
+
+SOURCEPARAMS =  {'apiKey':apiKey} 
+#Level buttons
+level1button = tk.Button(root, text = "Sources", font = ("Arial", 20, "bold"), state = "normal", command = lambda: sourcesA(SOURCEPARAMS))
+level1button.config(height = 3, width = 10)
+level1button.grid(column = 0, row = 2)
+
+
+
+btn4 = tk.Button(root, text = "Top Headlines", font = ("Arial", 20, "bold"), command = opentopheadlineparams)
+btn4.config(height = 3, width = 15)
+btn4.grid(column = 2, row = 2)
+
+
+
+
+btn6 = tk.Button(root, text = "All News",  font = ("Arial", 20, "bold"))
+btn6.config(height = 3, width = 10)
+btn6.grid(column = 3, row = 2)
+
+#text box
+storyline = tk.Text(root, width = 50, height = 10, borderwidth = 3, relief = tk.GROOVE)
+storyline.config(state = "disabled")
+storyline.grid(column = 2, row = 3)
 
 
 
@@ -394,6 +524,17 @@ title = tk.Label(root, text = "NewsProvider 2.0.0", fg = "black", font = ("Couri
 
 
 
+
+
+
+
+
+
+
+
+
+
+root.mainloop();
 
 
 

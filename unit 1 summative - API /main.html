@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+
+  <title>NewsProvider</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+
+<style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600);
+
+
+
+body {
+  background-image: linear-gradient(to top right, #A82A71, #4C61B0);
+}
+body .title {
+  width: 800px;
+  margin: 0 auto;
+  text-align: center; 
+}
+body .title h1 {
+  margin: 0px 0px 0px 0px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  color: #000000; 
+}
+body .title p {
+  margin: 10px 0px 0px 0px;
+  font-size: 18px;
+  color: #000000;
+  font-weight: 400;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+body .ui {
+  width: 750px;
+  margin: 0 auto;
+  margin-top: 50px;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  box-shadow: none;
+}
+body .ui ul {
+  margin: 0px 30px 10px 0px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 20px;
+}
+body .ui .drop p {
+  color: #f8fbfa;
+}
+body .ui_box {
+  width: 800px;
+  height: 280px;
+  position: relative;
+  background: #3d3d3d;
+  float: left;
+  box-shadow: -1px 0px rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  transform: scale(1);
+  transition-property: transform, background;
+  transition-duration: 0.3s;
+}
+body .ui_box__inner {
+  padding: 30px;
+}
+body .ui_box__inner span {
+  font-size: 36px;
+  font-weight: 700;
+}
+body .ui_box__inner .progress {
+  width: 100%;
+  margin-top: 10px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  margin-bottom: 15px;
+}
+
+
+
+body .ui_box__inner .progress_bar {
+  height: 6px;
+  float: left;
+  width: 10%; /* THIS IS THE PROGRESS BAR !!!!!!!!! */
+  background: #ad1302;
+  -webkit-animation: bar 2s;
+}
+body .ui_box h2 {
+  font-weight: normal;
+  font-size: 16px;
+  margin: -4px 0px 3px 0px;
+}
+body .ui_box p {
+  font-size: 13px;
+  color: #b6b6b6;
+  clear: left;
+  font-weight: 300;
+  width: 750px;
+  margin: 2px 0px 15px 0px;
+}
+body .ui_box:hover {
+  background: #4fa584;
+  transform: scale(1.1);
+  transition-property: transform, background;
+  transition-duration: 0.3s;
+  position: relative;
+  z-index: 1;
+}
+.ui_box:hover > .ui_box__inner p {
+  color: #b3dacb;
+}
+.ui_box:hover > .drop {
+  transition-property: bottom, opacity;
+  transition-duration: 0.3s;
+  bottom: -42px;
+  opacity: 1;
+}
+.ui_box:hover > .drop .arrow {
+  transition-property: transform;
+  transition-duration: 1s;
+  transform: rotate(765deg);
+}
+.ui_box:hover > .ui_box__inner .progress_graph > div {
+  background: white;
+}
+.ui_box:hover > .ui_box__inner .progress .progress_bar, .ui_box:hover > .ui_box__inner .progress .progress_bar--two {
+  background: white;
+}
+.stat_left {
+  float: left;
+}
+
+
+
+
+
+
+.ui_box button{
+  font-size: 13px;
+  width: 100px;
+  height: 25px;
+  font-colour: #000000;
+}
+
+
+
+
+
+
+</style>
+
+
+
+
+
+</head>
+
+
+
+
+<body>
+
+
+
+
+
+
+
+<div class="title">
+  <h1 id = username>
+    News!
+  </h1>
+</div>
+ 
+<div class="ui">
+
+
+
+<div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Četrti gol Kopitarja Kraljem prinesel četrto zmago - RTV Slovenija </h2><p id = sender1>None</p><p id = sender1>Winnipeg se je dvakrat vrnil, tretjič več ne.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.rtvslo.si/sport/hokej/liga-nhl/cetrti-gol-kopitarja-kraljem-prinesel-cetrto-zmago/502923' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> V hotelu naj bi rezervirala sobo le za poročno obleko - 24ur.com </h2><p id = sender1>None</p><p id = sender1>Igralka Jennifer Lawrence in njen izbranec Cooke Maroney sta pred nekaj dnevi dahnila usodni da. Poročno slavje je potekalo brez težav, za kar pa je poskrbela kar nevesta sama. Najbolj pa jo je očitno skrbelo za poročno obleko.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.24ur.com/popin/tuja-scena/v-hotelu-naj-bi-rezervirala-sobo-le-za-porocno-obleko.html' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Oblak znova nepremagan, Dinamo remiziral, Tottenham ponižal Zvezdo - 24ur.com </h2><p id = sender1>None</p><p id = sender1>Začel se je tretji krog Lige prvakov. Atletico Madrid našega Jana Oblaka je z 1:0 doma ugnal Bayer iz Leverkusna. Zagrebški Dinamo je gostoval pri ukrajinskem Šahtarju. Končalo se je z 2:2, kar našim južnim sosedom zagotavlja lepo popotnico pred drugo polovic…</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.24ur.com/sport/nogomet/ligaprvakov/liga-prvakov-tretji-krog-prvi-dan.html' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> To je kralj avtoposla v Evropi, koliko zaostajajo Slovenci? - Siol.net </h2><p id = sender1>None</p><p id = sender1>Emil Frey je z 830 trgovci največji avtomobilski trgovec, ki bo v prihodnje še okrepil svoj položaj tudi v Sloveniji. Švicarji so imeli lani 13,5 milijarde evrov prihodkov in obvladujejo trg v Evropi. Kdo je še v prvi deseterici najuspešnejših avtomobilskih t…</p><button id = "button1" value = "bro"	  onclick="location.href=' https://siol.net/avtomoto/novice/to-je-kralj-avtomobilskega-posla-v-evropi-koliko-zaostajajo-slovenci-510076' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> #foto Zlata gazela Dnevnikovega izbora je lendavsko podjetje Virs - Dnevnik/si </h2><p id = sender1>None</p><p id = sender1>Družba Dnevnik je danes v Cankarjevem domu razglasila najboljša in najhitreje rastoča slovenska podjetja. Prestižno priznanje zlata gazela 2019 je prejelo podjetje Virs iz Lendave.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.dnevnik.si/1042911749' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Po srečanju Putin-Erdogan Turčija podaljšala prekinitev ognja v Siriji - RTV Slovenija </h2><p id = sender1>None</p><p id = sender1>.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.rtvslo.si/svet/po-srecanju-putin-erdogan-turcija-podaljsala-prekinitev-ognja-v-siriji/502918' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Roglič na vrhu lestvice UCI-ja, Pogačar 15. - RTV Slovenija </h2><p id = sender1>None</p><p id = sender1>Matej Mohorič še tretji Slovenec med stoterico .</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.rtvslo.si/sport/kolesarstvo/roglic-na-vrhu-lestvice-uci-ja-pogacar-15/502917' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Po Johnsonovem porazu preložitev brexita vse verjetnejša - RTV Slovenija </h2><p id = sender1>None</p><p id = sender1>Zavrnili so časovnico obravnave zakona.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.rtvslo.si/svet/po-johnsonovem-porazu-prelozitev-brexita-vse-verjetnejsa/502914' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Po očitkih o privilegijih poslanci zavrnili novelo zakona - Siol.net </h2><p id = sender1>None</p><p id = sender1>Poslanci niso podprli predloga novele zakona o poslancih, za so glasovali le štirje. V večini poslanskih skupin so se nazadnje odločili glasovati proti, čemur so botrovali tudi očitki v javnosti o povečevanju poslanskih privilegijev.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://siol.net/novice/slovenija/po-ocitkih-o-poslanskih-privilegijih-dz-zavrnil-novelo-zakona-510155' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Velika nagrada Brumen za oblikovalsko ekipo projekta BIO 26 - RTV Slovenija </h2><p id = sender1>None</p><p id = sender1>Dvoletna bera odličnega slovenskega oblikovanja se predstavi v Narodni galeriji.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.rtvslo.si/kultura/novice/velika-nagrada-brumen-za-oblikovalsko-ekipo-projekta-bio-26/502833' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Foto: Svež uvod v ljubljanski teden mode - RTV Slovenija </h2><p id = sender1>None</p><p id = sender1>Prvi dan ljubljanskega tedna mode.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.rtvslo.si/zabava/moda/foto-svez-uvod-v-ljubljanski-teden-mode/502905' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Odločitev Evropske komisije o Hrvaški je politična, pravi Šarec - Svet24.si </h2><p id = sender1>https://www.facebook.com/svet24.si</p><p id = sender1>Šarec obžaluje, da je Evropska komisija sprejela politično odločitev.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://novice.svet24.si/clanek/novice/slovenija/5daf2ee4a55f4/odlocitev-evropske-komisije-o-hrvaski-je-politicna-pravi-sarec' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> POOSTRENA VARNOST! Tekma visokega tveganja - Svet24.si </h2><p id = sender1>STA</p><p id = sender1>Povratno tekmo polfinala nogometnega pokala libertadores, južnoameriške različice lige prvakov, med argentinskima velikanoma Boco Juniors in River Platom bodo pospremili strogi varnostni ukrepi. Obračun bo na sporedu v noči na sredo po slovenskem času.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://ekipa.svet24.si/clanek/nogomet/mednarodni-nogomet/5daf13a580ad0/poostrena-varnost-tekma-visokega-tveganja' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Knovs na Sovi preverjal zaposlitev snahe Ljudmile Novak - reporter.si </h2><p id = sender1>STA</p><p id = sender1>Komisija DZ za nadzor obveščevalnih in varnostnih služb je danes ponovno opravila nadzor na Sovi, kjer je preverjala tudi zaposlitev sorodnice nekdanje predsednice NSi Ljudmile Novak, je potrdil član Knovsa Branko Simonovič. Po navedbah predsednika Mateja Ton…</p><button id = "button1" value = "bro"	  onclick="location.href=' https://reporter.si/clanek/slovenija/knovs-obiskal-sovo-zaradi-snahe-ljudmile-novak-737279' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Juncker ob koncu mandata: Z vsemi močmi se borite proti neumnemu nacionalizmu - 24ur.com </h2><p id = sender1>None</p><p id = sender1>Vodilni slovenski spletni medij: aktualni dogodki iz Slovenije in tujine, športne novice ter ekskluzivni prispevki iz sveta zabave.</p><button id = "button1" value = "bro"	  onclick="location.href=' https://www.24ur.com/novice/svet/juncker-ob-koncu-mandata-z-vsemi-mocmi-se-borite-proti-neumnemu-nacionalizmu.html' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Moški na Norveškem ukradel reševalno vozilo in zapeljal med pešce #foto #video - Siol.net </h2><p id = sender1>None</p><p id = sender1>Oborožen 32-letni Norvežan je danes v norveški prestolnici Oslo ukradel reševalno vozilo in zapeljal med pešce. Policija je ob pomoči bolničarjev v drugem reševalnem vozilu, ki so namerno trčili v ukradeno reševalno vozilo, storilca že prijela. Pet oseb je po…</p><button id = "button1" value = "bro"	  onclick="location.href=' https://siol.net/novice/svet/moski-na-norveskem-ukradel-resilca-in-zapeljal-med-pesce-510131' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Danijel je umrl v ženinem naročju - Dolenjski list </h2><p id = sender1>None</p><p id = sender1>»Najprej so ga pretepli, potem pa zvlekli za hišo in ga tam zabodli. Danijel je nekako pobegnil in stekel k nam, a je bil ves okrvavljen in se je...</p><button id = "button1" value = "bro"	  onclick="location.href=' http://www.dolenjskilist.si/2019/10/22/227351/novice/kronika/Danijel_je_umrl_v_zeninem_narocju/' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Redna dostava paketov z letečimi droni! | Računalniške novice - najdi.si </h2><p id = sender1></p><p id = sender1>Konec leta 2014 so pri podjetju Google prvič najavili začetek projekta Wing, v okviru katerega so že izvedli številne preizkuse letečih robotov, katerih ključna naloga bo dostava paketov končnim uporabnikom. Ti...</p><button id = "button1" value = "bro"	  onclick="location.href=' http://novice.najdi.si/predogled/novica/53781f6ab123d25986288081c40dee4f/Računalniške-novice/Znanost-in-IT/Redna-dostava-paketov-z-letečimi-droni' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> HTC oznanil telefon za strastne ljubitelje kriptovalut - Tehno enaA </h2><p id = sender1>Alen Vrević</p><p id = sender1>Tajvanski HTC je oznanil novi telefon, s katerim ciljajo predvsem na lastnike kriptovalut. Naprava se bo imenovala Exodus 1S in je naslednik lanskoletnega Exodus 1, ki ni bil ravno prodajna uspešnica, med drugim tudi zaradi cene, ki je ob izidu znašala okoli …</p><button id = "button1" value = "bro"	  onclick="location.href=' http://dne.enaa.com/Mobilniki/htc-oznanil-telefon-za-ljubitelje-kriptovalut.html' "></button></div></div><div class="ui_box" id = "boxnumber1"><div class="ui_box__inner"><h2 id = text1> Fiskalni svet opozarja: Obstaja tveganje, da bomo porabili več, kot je načrtovano - Siol.net </h2><p id = sender1>None</p><p id = sender1>None</p><button id = "button1" value = "bro"	  onclick="location.href=' https://news.google.com/__i/rss/rd/articles/CBMiY2h0dHBzOi8vc2lvbC5uZXQvcG9zZWwtZGFuZXMvbm92aWNlL2Zpc2thbG5pLXN2ZXQtb2NlbmlsLXByb3JhY3VuYS1wb2dsZWp0ZS1rYWotc28tdWdvdG92aWxpLTUxMDExMtIBAA?oc=5' "></button></div></div>
+</div>
+     
+
+</body>
+</html>
