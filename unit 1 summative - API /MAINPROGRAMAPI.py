@@ -8,12 +8,24 @@ import os
 import tkinter as tk
 import webbrowser
 from tkinter import * 
-
+import time
 
 open("main.html", "w").close()
 
 
-pagestart = """
+
+
+
+
+
+
+
+
+
+
+
+# variable with the first half of the html page: head tags, style, all contained here. 
+pagestart = """ 
 
 <!DOCTYPE html>
 <html>
@@ -199,7 +211,7 @@ body .ui_box:hover {
 """
 
 
-
+#ending of the html page, closing off body, html tags
 pageend = """
 </div>
      
@@ -210,6 +222,9 @@ pageend = """
 
 
 
+
+#this var is not used in the program - but this is the format for the boxes with the information displayed in it (this is also the 
+#middle of the html code, to be put in between pagestart and pageend)
 box = """
 
 
@@ -230,14 +245,7 @@ box = """
     </div>
   </div>
 
-
-
-
-
 """
-
-
-
 
 
 
@@ -275,7 +283,7 @@ data = "";
 
 
 
-# defining a params dict for the parameters to be sent to the API 
+# defining a params dict for the parameters to be sent to the API, will be changed later depending on request made 
 PARAMS = {'apiKey':apiKey} 
 
 
@@ -302,24 +310,40 @@ def writefile(jsonfile):
 	myfile = open("main.html","a") # use "a" to "append"
 	myfile.write(pagestart);
 
-	if jsonfile["status"] != "ok":
-		myfile = open("errorpage.html","w") # use "a" to "append"
-		myfile.write("<h1>Error, please try again</h1>")
-		myfile.close()
-	    #OPEN IT
-	for val in jsonfile['articles']:
+	if jsonfile["status"] != "ok": #if the status of the returned object isn't "ok", then write an error page
 		myfile.write('<div class="ui_box" id = "boxnumber1">');
 		myfile.write('<div class="ui_box__inner">')
-		myfile.write('<h2 id = text1> ' + str(val["title"]) + ' </h2>');
-		myfile.write('<p id = sender1>' + str(val["author"]) + '</p>')
-		myfile.write('<p id = sender1>' + str(val["description"]) + '</p>')
-		myfile.write('<button id = "button1"	 onclick="location.href= \' ' + val["url"] + '\' ">  '   +    val["source"]["name"] + '</button>')
+		myfile.write('<h2 id = text1> Error: ' + jsonfile["code"] +  '</h2>');
+		myfile.write('<p id = sender1>' + jsonfile["message"] + '</p>')
 		myfile.write('</div>');
 		myfile.write('</div>');
-	myfile.write(pageend);
+
+	
+	else: # writes a different html page if there are no returned objects
+		if jsonfile["totalResults"] == 0:
+			myfile.write('<div class="ui_box" id = "boxnumber1">');
+			myfile.write('<div class="ui_box__inner">')
+			myfile.write('<h2 id = text1> No Articles Found </h2>');
+			myfile.write('</div>');
+			myfile.write('</div>');
+		else: 		
+			for val in jsonfile['articles']: #for each article returned, write a "block" in the html code (it's a div) with the info
+				myfile.write('<div class="ui_box" id = "boxnumber1">');
+				myfile.write('<div class="ui_box__inner">')
+				myfile.write('<h2 id = text1> ' + str(val["title"]) + ' </h2>');
+				myfile.write('<p id = sender1>' + str(val["author"]) + '</p>')
+				myfile.write('<p id = sender1>' + str(val["description"]) + '</p>')
+				myfile.write('<button id = "button1"	 onclick="location.href= \' ' + val["url"] + '\' ">Click to go to article</button>')
+				myfile.write('</div>');
+				myfile.write('</div>');
+
+
+	myfile.write(pageend); #finish the writing process
+	myfile.close();
+	time.sleep(0.5); # added a 0.5 second delay to make sure the page is written before opening it automatically in browser
 	url = os.getcwd();
-	url = "file://" + str(url) + "/main.html";
-	webbrowser.open(url, new=2);
+	url = "file://" + str(url) + "/main.html"; # find path for current file, main.html should be in the same directory
+	webbrowser.open(url, new=2); #use webbrowser module to automatically open the file
 	#chrome = webbrowser.get('chrome');
 	#chrome.open(url);
 
@@ -343,7 +367,7 @@ def writefile(jsonfile):
 
 
 
-def sourcesA(PARAMS): 
+def sourcesA(PARAMS): # writing the sources page
 	r = requests.get(url = baseURL+endpoint_sources, params = PARAMS) 
 	data = r.json(); 
 
@@ -354,19 +378,19 @@ def sourcesA(PARAMS):
 		myfile = open("errorpage.html","w") # use "a" to "append"
 		myfile.write("<h1>Error, please try again</h1>")
 		myfile.close()
-	    #OPEN IT
-	for val in data['sources']:
+
+	for val in data['sources']: # for each source returned, write a block in the html code with the contained information 
 		myfile.write('<div class="ui_box" id = "boxnumber1">');
 		myfile.write('<div class="ui_box__inner">')
 		myfile.write('<h2 id = text1> ' + str(val["name"]) + ' </h2>');
 		myfile.write('<p id = sender1>' + str(val["id"]) + '</p>')
 		myfile.write('<p id = sender1>' + str(val["description"]) + '</p>')
-		myfile.write('<button id = "button1" value ="Go to source site"	  onclick="location.href=\' ' + val["url"] + '\' ">' + val["name"] + '</button>')
+		myfile.write('<button id = "button1" value ="Go to source site"	  onclick="location.href=\' ' + val["url"] + '\' ">Click to go to website</button>')
 		myfile.write('</div>');
 		myfile.write('</div>');
 	myfile.write(pageend);
 	url = os.getcwd();
-	url = "file://" + str(url) + "/main.html";
+	url = "file://" + str(url) + "/main.html"; # see above, writefile function, for detailed comments (same process, basically)
 	webbrowser.open(url, new=2);	
 	root.destroy();
 
@@ -376,7 +400,7 @@ def sourcesA(PARAMS):
 
 
 
-def opentopheadlineparams():
+def opentopheadlineparams(): #opening the popup to enter parameters for the top-headlines
 
 	top = Toplevel();
 
@@ -384,7 +408,7 @@ def opentopheadlineparams():
 	btn4.config(height = 3, width = 10);
 	btn4.grid(column = 2, row = 5)
 
-	entr = tk.Entry(top)
+	entr = tk.Entry(top, state = "disabled")
 	entr.grid(column = 2, row = 4)
 
 
@@ -417,6 +441,7 @@ def opentopheadlineparams():
 
 
 	def parameterselect(whichparam): 
+		entr.config(state = "normal")
 		title.config(text = whichparam);
 		if whichparam == "country":
 			instructions.config(text = "Enter the 2-letter ISO 3166-1 code of \nthe country you want to get headlines for. \nPossible options:	ae ar at au be bg br ca ch cn co cu cz de \neg fr gb gr hk hu id ie il in it jp kr \nlt lv ma mx my ng nl no nz ph pl pt ro rs ru sa \nse sg si sk th tr tw ua us ve za")
@@ -425,7 +450,7 @@ def opentopheadlineparams():
 			instructions.config(text = "Enter one of the following categories: \nPossible options: business entertainment general health \nscience sports technology")
 			btn4.config(command = lambda: search("category"))
 		elif whichparam == "source":
-			instructions.config(text = "Restart the program and choose the _sources_ \nbutton to see a page with all possible sources.");
+			instructions.config(text = "Click on the main window, then on the \nsources button to see a page with all possible sources.");
 			btn4.config(command = lambda: search("source"))
 		elif whichparam == "keywords":
 			instructions.config(text = "Enter the chosen keyword query: ");
