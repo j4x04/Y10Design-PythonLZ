@@ -305,6 +305,18 @@ PARAMS = {'apiKey':apiKey}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 #write the html file
 def writefile(jsonfile):
 	myfile = open("main.html","a") # use "a" to "append"
@@ -367,6 +379,11 @@ def writefile(jsonfile):
 
 
 
+
+
+
+
+
 def sourcesA(PARAMS): # writing the sources page
 	r = requests.get(url = baseURL+endpoint_sources, params = PARAMS) 
 	data = r.json(); 
@@ -400,23 +417,40 @@ def sourcesA(PARAMS): # writing the sources page
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def opentopheadlineparams(): #opening the popup to enter parameters for the top-headlines
 
 	top = Toplevel();
 
 	btn4 = tk.Button(top, text = "Search", font = ("Arial", 20, "bold"));
-	btn4.config(height = 3, width = 10);
+	btn4.config(height = 3, width = 10); # establish searhc button
 	btn4.grid(column = 2, row = 5)
 
 	entr = tk.Entry(top, state = "disabled")
-	entr.grid(column = 2, row = 4)
+	entr.grid(column = 2, row = 4)# establish the input field
 
 
 
 
 
 
-	def search(anotherparam):
+	def search(anotherparam): # configure the parameters for the search before sending to the function that executes the search, closes the window
 		#print(anotherparam)
 		n = str(entr.get())
 		PARAMS = {'apiKey':apiKey} 
@@ -438,9 +472,7 @@ def opentopheadlineparams(): #opening the popup to enter parameters for the top-
 
 
 
-
-
-	def parameterselect(whichparam): 
+	def parameterselect(whichparam):  #changes the title/label with instructions as to what to do for each param 
 		entr.config(state = "normal")
 		title.config(text = whichparam);
 		if whichparam == "country":
@@ -491,22 +523,7 @@ def opentopheadlineparams(): #opening the popup to enter parameters for the top-
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def top_headlines(PARAMS):
+def top_headlines(PARAMS): # send the request to the param, return
 	r = requests.get(url = baseURL+endpoint_topheadlines, params = PARAMS) 
 	data = r.json();
 	writefile(data);
@@ -524,12 +541,117 @@ def top_headlines(PARAMS):
 
 
 
-def newsall():
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def newsall(PARAMS):
 	r = requests.get(url = baseURL+endpoint_everything, params = PARAMS) 
 	data = r.json();
-	print(data)
+	writefile(data);
 
   
+
+
+
+
+
+
+
+def everythingsearch(): #opening the popup to enter parameters for the top-headlines
+	PARAMS = {'apiKey':apiKey} 
+	top = Toplevel();
+
+
+	entr = tk.Entry(top)
+	entr.grid(column = 2, row = 4)# establish the input field
+
+	title = tk.Label(top, text = "Choose your language", fg = "black", font = ("Courier", 20) )
+	title.grid(column = 2, row = 0)
+
+	instructions = tk.Label(top, fg = "black", font = ("Courier", 20), text = "The 2-letter ISO-639-1 code of the language you want to get headlines for. \nPossible options: ar/de/en/es/fr/he/it/nl/no/pt/ru/se/ud/zh. ");
+	instructions.grid(column = 2, row = 1)	
+
+
+
+
+
+
+	def search2(): 
+		labeltext = title.cget("text")
+		n = str(entr.get())
+		if labeltext == "Choose your language":
+			PARAMS.update( {'language' : n} )
+			title.config(text = "Enter keywords to search by")
+			instructions.config(text = "")
+		elif labeltext == "Enter keywords to search by":
+			PARAMS.update( { 'q': n})
+			newsall(PARAMS);
+			top.destroy();
+			root.destroy();
+
+
+
+
+	btn4 = tk.Button(top, text = "Search", font = ("Arial", 20, "bold"), command = search2);
+	btn4.config(height = 3, width = 10); 
+	btn4.grid(column = 2, row = 5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -571,7 +693,7 @@ btn4.grid(column = 2, row = 2)
 
 
 
-btn6 = tk.Button(root, text = "All News",  font = ("Arial", 20, "bold"))
+btn6 = tk.Button(root, text = "All News",  font = ("Arial", 20, "bold"), command = everythingsearch)
 btn6.config(height = 3, width = 10)
 btn6.grid(column = 3, row = 2)
 
