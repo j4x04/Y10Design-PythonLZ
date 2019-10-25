@@ -568,7 +568,7 @@ def top_headlines(PARAMS): # send the request to the param, return
 
 
 
-def newsall(PARAMS):
+def newsall(PARAMS): #process all news request 
 	r = requests.get(url = baseURL+endpoint_everything, params = PARAMS) 
 	data = r.json();
 	writefile(data);
@@ -600,7 +600,7 @@ def everythingsearch(): #opening the popup to enter parameters for the top-headl
 
 
 
-	def search2(): 
+	def search2(): # search --> if it is language, then it will take down the language variable, if it is keyword, it will send search query
 		labeltext = title.cget("text")
 		n = str(entr.get())
 		if labeltext == "Choose your language":
@@ -656,7 +656,7 @@ def everythingsearch(): #opening the popup to enter parameters for the top-headl
 
 
 
-def notify(title, text):
+def notify(title, text): #display starting notification
     os.system("""
               osascript -e 'display notification "{}" with title "{}"'
               """.format(text, title))
@@ -669,6 +669,10 @@ notify("NewsProvider", "NewsProvider 2.0.0 has been started")
 
 
 
+
+
+# all of the basic GUI elements are here 
+
 root = tk.Tk();
 
 
@@ -679,7 +683,7 @@ title.grid(column = 2, row = 0)
 
 
 SOURCEPARAMS =  {'apiKey':apiKey} 
-#Level buttons
+
 level1button = tk.Button(root, text = "Sources", font = ("Arial", 20, "bold"), state = "normal", command = lambda: sourcesA(SOURCEPARAMS))
 level1button.config(height = 3, width = 10)
 level1button.grid(column = 0, row = 2)
