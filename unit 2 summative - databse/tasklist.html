@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task List</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
+
+<style type="text/css">
+
+
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  font-family: 'Indie Flower';
+  background-image: linear-gradient(to top right, #A82A71, #4C61B0);
+  font-weight:400;
+  font-size: 1em;
+  color: #aaa;
+  display:flex;
+  
+}
+
+input {
+  font-family: 'Indie Flower', cursive;
+  font-size: 1em;
+}
+
+* {
+  margin:0;
+  padding:0;
+}
+
+.container {
+  width: 600px;
+  margin: auto;
+  box-shadow: 0 0 2px hsla(0,0%,0%,0.2); 
+  border-radius:6px;
+  background-color:#f8f8f8;
+}
+
+@keyframes shake {
+  from {left: -2px;}
+  to   {left: 2px;}
+}
+
+@keyframes birth {
+  from {height:0;}
+  to   {height: 50px;}
+}
+
+.task--row {
+  height: 50px;
+  padding:0 20px;
+  line-height:50px;
+  color: #000000;
+}
+
+.task__head {
+  background: #FE5F55;
+  color: white;
+  font-weight:bold;
+  border-top-left-radius:6px;
+  border-top-right-radius:6px;
+}
+
+.task__footer {
+  transition: all 0.2s cubic-bezier(.7,.2,.17,1);
+  background: #1CCAD8;
+  border-bottom-left-radius:6px;
+  border-bottom-right-radius:6px;
+}
+
+.task__footer:hover {background-color:#54E0EA}
+
+.task {
+  overflow:hidden;
+  transition: all 0.2s 0.2s cubic-bezier(.7,.2,.17,1);
+  position:relative;
+  display:block;
+}
+
+.task__check {
+  position: absolute;
+  left: -9999px; 
+  z-index: -1;
+}
+
+.task__field {
+  transition: background-size 0.8s 0.2s cubic-bezier(.7,.2,.17,1),
+              background-color 0.2s cubic-bezier(.7,.2,.17,1),
+              height 0.2s 1s cubic-bezier(.7,.2,.17,1);
+  position:relative;
+  background-color:#f8f8f8;
+  border-top: 1px solid #eee;
+  background-image: linear-gradient(to right, #FE5F55, red);
+  background-size: 0 2px;
+  background-repeat:no-repeat;
+  background-position: left bottom;
+}
+
+.task__field:hover {background-color:white;}
+
+.task:first-child .task__field {
+  border-top:none;
+}
+
+.task--new:last-child {
+  animation: birth 0.3s cubic-bezier(.7,.2,.17,1) 1;
+}
+
+.task__field.shaking {
+  animation: shake 0.1s 0.1s infinite ease-in-out;
+  background-size: 100% 2px;
+}
+
+.task__check:checked + .task__field {
+  color: #47D185;
+}
+
+.task__important {
+  transition: all 0.3s cubic-bezier(.09,.66,.36,1.8);
+  opacity:0;
+  position: absolute;
+  right:0;
+  top:0;
+  transform: scale(0);
+  color: #47D185;
+  font-size:1.4em;
+  height:50px;
+  width:50px;
+  border:0;
+  background:none;
+}
+
+.task__check:checked + .task__field > .task__important {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.task__field.delete {
+  transition: all 0.2s cubic-bezier(.7,.2,.17,1);
+  transform: scale(1.5, 2);
+  height:0;
+  opacity:0;
+}
+
+.boop {
+  height:50px;
+  border:0;
+  background:none;
+  width:100%;
+  color:white;
+}
+
+
+
+
+  
+</style>
+
+
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <div class="task__head task--row">Tasks to do~ (click to mark as complete, hold to remove)</div>
+  <form action="">
+    
+
+<div class="task__list">
+ 
+    </div>
+      <div class="task--row task__footer">
+    <input class="boop" type="text" value="+ add new task">
+  </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $('.boop').on('focus',function(){ // this refreshes the input bar 
+    $(this).val('');
+  });
+
+  $('.boop').on('blur',function(){
+    $(this).val('+ add new task'); 
+  });
+
+
+
+  $('form').on('submit', function(event){
+    event.preventDefault();
+    
+    var taskText = $('.boop').val();
+    var tasksN = $('.task').length + 1; 
+    
+    var newTask = '<label for="task--' + tasksN + '" class="task task--new"><input class="task__check" type="checkbox" id="task--' + tasksN + '" /> <div class="task__field task--row">' + taskText + '<button class="task__important"><i class="fa fa-check" aria-hidden="true"></i></button></div></label>'
+      // this writes in a new task (code)
+    
+    $('.task__list').append(newTask); // add the new task
+
+    $('.boop').val(''); // add 
+    checkList(); // calls the checklist function, see below
+  });
+
+
+  var lastDeletedTask = '';
+
+
+  function checkList() {
+    
+    
+    $('.task').each(function(){
+
+      var $field = $(this).find('.task__field');
+      var mousedown = false;
+
+
+      $field.on('mousedown', function(){
+          mousedown = true;
+          $field.addClass('shaking');
+          setTimeout(kill,1000)
+      });
+
+      $field.on('mouseup', function(){
+          mousedown = false;
+          $field.removeClass('shaking');
+      });
+
+      function kill(){
+        if(mousedown) {
+          $field.addClass('delete');
+          lastDeletedTask = $field.text();
+          
+          
+          setTimeout(function(){
+             $field.remove();
+          }, 200);
+         } 
+         else {return;}
+      }
+
+    });
+  }
+
+  checkList();
+  
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
