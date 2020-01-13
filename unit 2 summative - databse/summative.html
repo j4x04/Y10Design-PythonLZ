@@ -7,6 +7,20 @@
         <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <body >
             <h1 id="uid"></h1>
             
@@ -21,12 +35,22 @@
             
             <p id="myName"></p>
             <p id="myData"></p>
-            
+
             <div id="info"></div>
 
             
     </body>
     
+
+
+
+
+
+
+
+
+
+
     <!-- HERE IS THE JAVASCRIPT TO CONNECT TO YOUR FIREBASE -->
     <script>
         // Your web app's Firebase configuration
@@ -40,10 +64,10 @@
           appId: "1:655050018227:web:7abd10fea73fb5c88a8fc6",
           measurementId: "G-B0JZDN0K0N"
           
-          ///// COPY AND PASTE YOUR FIREBASE CONFIGURATION DATA HERE /////
+          
           };
         firebase.initializeApp(config);
-               
+
         // Check to see if you are logged in
         firebase.auth().onAuthStateChanged(function(user) {
             if (user == null) {
@@ -56,17 +80,31 @@
             } // end user null check
         }); // end check auth state
         
+
+
+
+
+
+
+
        // HERE IS THE FUNCTION TO SHOW HOW TO GET USER DATA
         function getData() {
           var userId = document.getElementById("uid").innerHTML;
           firebase.database().ref('/' + userId).once('value', function(snapshot) {
-            document.getElementById("myData").innerHTML = snapshot.val().teacher;
+            q = snapshot.val().teacher;
+            document.getElementById("myData").innerHTML = q["email"];
             console.log(snapshot.val().teacher);
-            console.log(snapshot.val().email);
           });
 
         }
        
+
+
+
+
+
+
+
        // HERE IS THE FUNCTION TO SHOW HOW TO SET/OVERWRITE USER DATA
         function setData() {
           
@@ -76,12 +114,20 @@
           document.getElementById("myName").innerHTML = x;
           firebase.database().ref('/' + userId).set({
 
-            teacher: x,
-            email: x_email
+            teacher: {
+              email: x_email, 
+              name: x
+            }
+            
 
           }); 
         }
         
+
+
+
+
+
         function signin() {
             var provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithRedirect(provider).then(function(result) { 
