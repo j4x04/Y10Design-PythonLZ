@@ -5,6 +5,7 @@
   <title>Task List</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- jquery --> 
   <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
 
   <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script> <!-- google firebase scripts --> 
   <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -37,7 +38,10 @@ input {
 
 
 .all {
-  width: 600px;
+  position: absolute;
+  left: 25%;
+  top: 10%;
+  width: 30%;
   margin: auto;
   box-shadow: 0 0 2px hsla(0,0%,0%,0.2); 
   border-radius:6px;
@@ -200,7 +204,7 @@ input {
 
 
 
-.header {
+.header2 {
   padding: 20px 20px;
   background: #555;
   color: #f1f1f1;
@@ -223,6 +227,7 @@ Popup for name */
   border: 3px solid #666666;
   width: 100%;
   height: 100%;
+  
   z-index: 30;
 }
 
@@ -231,7 +236,7 @@ Popup for name */
 .popupo2 .popup-overlay2.active {
   /*displays pop-up when "active" class is present*/
   visibility: visible;
-  text-align: center;
+  text-align: center;s
   z-index: 30;
 }
 
@@ -274,16 +279,6 @@ Popup for name */
   color: #ffffff;
   z-index: 30;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -358,6 +353,131 @@ Popup for name */
 }
 
 
+
+/* CALENDAR */
+
+
+
+
+
+h2 {
+  font-size: 2em;
+  line-height: 1.25em;
+  margin: .25em 0;
+}
+
+h3 {
+  font-size: 1.5em;
+  line-height: 1em;
+  margin: .33em 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.container {
+  position: absolute;
+  left: 60%;
+  top: 10%;
+
+
+  height: 538px;
+
+  width: 510px;
+  background: #f9f9f9;
+  color: #0e171c;
+  font: 300 100%/1.5em 'Lato', sans-serif;
+  margin: 1px;
+}
+
+
+
+
+
+/* ---------- CALENDAR ---------- */
+
+.calendar {
+  position: relative;
+  left: 3%;
+  text-align: center;
+}
+
+.calendar header {
+  position: relative;
+}
+
+.calendar h2 {
+  text-transform: uppercase;
+}
+
+.calendar thead {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.calendar tbody {
+  color: #7c8a95;
+}
+
+.calendar tbody td:hover {
+  border: 2px solid #00addf;
+}
+
+.calendar td {
+  border: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  height: 4em;
+  line-height: 4em;
+  text-align: center;
+  width: 4em;
+}
+
+.calendar .prev-month,
+.calendar .next-month {
+  color: #cbd1d2;
+}
+
+.calendar .prev-month:hover,
+.calendar .next-month:hover {
+  border: 2px solid #cbd1d2;
+}
+
+.current-day {
+  background: #00addf;
+  color: #f9f9f9;
+}
+
+.event {
+  cursor: pointer;
+  position: relative;
+}
+
+.event:after {
+  background: #00addf;
+  border-radius: 50%;
+  bottom: .5em;
+  display: block;
+  content: '';
+  height: .5em;
+  left: 50%;
+  margin: -.25em 0 0 -.25em;
+  position: absolute;
+  width: .5em;
+}
+
+.event.current-day:after {
+  background: #f9f9f9;
+}
+
+
+
+
+
+
+
 </style>
 
 
@@ -378,15 +498,11 @@ Popup for name */
 
 
 
-<div class="header" id="myHeader">
+<div class="header2" id="myHeader">
   <h2 id = "header1">Task List</h2>
   <br>
   <br>
   <button class = "newbuttonclass" onclick = "changename();">Change Name</button>
-  <br>
-  <br>
-  <br>
-  <button class = "newbuttonclass" onclick = "signin();">Switch Accounts</button>
   <br>
   <br>
   <br>
@@ -486,16 +602,107 @@ Popup for name */
 
 
 
+
+
+
+
+  <div class="container">
+
+    <div class="calendar">
+
+      <header>        
+
+        <h2>September</h2>
+
+      </header>
+      
+      <table>
+      
+        <thead>
+          
+          <tr>
+            
+            <td>Mo</td>
+            <td>Tu</td>
+            <td>We</td>
+            <td>Th</td>
+            <td>Fr</td>
+            <td>Sa</td>
+            <td>Su</td>
+
+          </tr>
+
+        </thead>
+
+        <tbody id = "calchange">
+           
+          <tr>
+            <td class="prev-month">26</td>
+            <td class="prev-month">27</td>
+            <td class="prev-month">28</td>
+            <td class="prev-month">29</td>
+            <td class="prev-month">30</td>
+            <td class="prev-month">31</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td class="event">10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td class="event">21</td>
+            <td>22</td>
+          </tr>
+
+          <tr>
+            <td class="current-day">23</td>
+            <td>24</td>
+            <td>25</td>
+            <td>26</td>
+            <td>27</td>
+            <td>28</td>
+            <td>29</td>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td class="prev-month">1</td>
+            <td class="prev-month">2</td>
+            <td class="next-month">3</td>
+            <td class="next-month">4</td>
+            <td class="next-month">5</td>
+            <td class="next-month">6</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div> <!-- end calendar -->
+
+  </div> <!-- end container -->
+
+
+
 <button></button>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -516,7 +723,6 @@ Popup for name */
 <script type="text/javascript">
 
 //console.log(localStorage);
-
 
 
 
@@ -934,16 +1140,27 @@ s
 
 
         function signin() {
+
+
+          name = document.getElementById('fname').value;
+
+
+          if(name.length > 10) {
+            alert("Name Too Long! Must be Ten Characters or Under")
+          } else {
+            
+          
             $(".popup-overlay, .popup-content").removeClass("active");
             var provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithRedirect(provider).then(function(result) { 
                 window.location.replace("fbtest.html");
             });
-            name = document.getElementById('fname').value;
+            
             //document.getElementById('header1').innerHTML = name + "'s task list";
             localStorage.setItem("name", name);
         }
 
+      }
 
 
         function signout() {
@@ -1008,20 +1225,59 @@ function changenamept2() {
 
   name = document.getElementById('changednameString').value;
   
+  if(name.length > 10) {
+    alert("Name Too Long! Must be Ten Characters or Under")
+  } else {
+    firebase.database().ref('/q' + userId).set({
+
+          "name": name, 
+          obhect
+
+
+    }); 
+    callbackCN();
+  }
   
-  firebase.database().ref('/q' + userId).set({
-
-        "name": name, 
-        obhect
 
 
-  }); 
 
-  callbackCN();
 
 }
 
 
+
+//-------------------------------------------------------------------------------------------
+// date 
+
+
+Date.prototype.myMet = function() {
+  if (this.getMonth() == 0){this.myProp = "January"};
+  if (this.getMonth() == 1){this.myProp = "February"};
+  if (this.getMonth() == 2){this.myProp = "March"};
+  if (this.getMonth() == 3){this.myProp = "April"};
+  if (this.getMonth() == 4){this.myProp = "May"};
+  if (this.getMonth() == 5){this.myProp = "June"};
+  if (this.getMonth() == 6){this.myProp = "July"};
+  if (this.getMonth() == 7){this.myProp = "August"};
+  if (this.getMonth() == 8){this.myProp = "September"};
+  if (this.getMonth() == 9){this.myProp = "October"};
+  if (this.getMonth() == 10){this.myProp = "November"};
+  if (this.getMonth() == 11){this.myProp = "December"};
+};
+
+function getDate() {
+  var d = new Date();
+  d.myMet();
+  return d;
+}
+
+
+
+
+
+
+
+//-------------------------------------------------------------------------------------------
 
 
 
