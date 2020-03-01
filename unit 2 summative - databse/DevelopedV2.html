@@ -1,0 +1,1758 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task List</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- jquery --> 
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+
+  <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script> <!-- google firebase scripts --> 
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<style type="text/css">
+
+* {
+  margin:0;
+  padding:0;
+}
+
+
+html, body {
+  height: 100%; 
+  width: 100%;
+}
+body {
+  font-family: 'Indie Flower';
+  background-image: linear-gradient(to top right, #A82A71, #4C61B0);
+  font-size: 1em;
+  display:flex;
+  
+}
+
+input {
+  font-family: 'Indie Flower', cursive;
+  font-size: 1em;
+}
+
+
+
+.all {
+  position: absolute;
+  left: 25%;
+  top: 10%;
+  width: 30%;
+  margin: auto;
+  box-shadow: 0 0 2px hsla(0,0%,0%,0.2); 
+  border-radius:6px;
+  background-color:#f8f8f8;
+}
+
+@keyframes shake {
+  from {left: -3px;}
+  to   {left: 3px;}
+}
+
+@keyframes create {
+  from {height:0;}
+  to   {height: 51px;}
+}
+
+.task--roww {
+  height: 50px;
+  padding:0 20px;
+  line-height:50px;
+  color: #000000;
+}
+
+.head {
+  background: #000000;
+  color: white;
+  font-weight:bold;
+  border-top-left-radius:6px;
+  border-top-right-radius:6px;
+}
+
+.task__bottom {
+  transition: all 0.2s cubic-bezier(.71,.2,.17,1);
+  background: #a9a9a9;
+  border-bottom-left-radius:6px;
+  border-bottom-right-radius:6px;
+}
+
+.task__bottom:hover {background-color:#000000}
+
+.task {
+  overflow:hidden;
+  transition: all 0.2s 0.2s cubic-bezier(.7,.2,.17,1);
+  position:relative;
+  display:block;
+}
+
+.task__check {
+  position: absolute;
+  left: -9999px; 
+  z-index: -1;
+}
+
+.box {
+  transition: background-size 0.8s 0.2s cubic-bezier(.7,.2,.17,1),
+              background-color 0.2s cubic-bezier(.7,.2,.17,1),
+              height 0.2s 1s cubic-bezier(.7,.2,.17,1);
+  position:relative;
+  background-image: linear-gradient(#00ff00, green);
+  background-size: 0 2px;
+  background-repeat:no-repeat;
+  background-position:bottom;
+}
+
+
+
+.task:first-child .box {
+  border-top:none;
+}
+
+.task--new:last-child {
+  animation: create 0.3s cubic-bezier(.7,.2,.17,1) 1;
+}
+
+.box.shaking {
+  animation: shake 0.1s 0.1s infinite ease-in-out;
+  background-size: 100% 2px; 
+
+}
+
+
+
+
+
+.box.delete { 
+  transition: all 0.2s cubic-bezier(.7,.2,.17,1);
+  height:0;
+}
+
+.boop {
+  height:50px;
+  border:0;
+  background:none;
+  width:100%;
+  color:white;
+}
+
+
+
+.popupo .popup-overlay {
+  /*Hides pop-up when there is no "active" class*/
+  visibility: hidden;
+  position: fixed;
+  background: #ffffff;
+  border: 3px solid #666666;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+}
+
+
+
+.popupo .popup-overlay.active {
+  /*displays pop-up when "active" class is present*/
+  visibility: visible;
+  text-align: center;
+  z-index: 30;
+}
+
+.popupo .popup-content {
+  /*Hides pop-up content when there is no "active" class */
+  visibility: hidden;
+  z-index: 30;
+}
+
+.popupo .popup-content.active {
+  /*Shows pop-up content when "active" class is present */
+  visibility: visible;
+  z-index: 30;
+}
+
+.popupo button {
+  display: inline-block;
+  vertical-align: middle;
+  horizontal-align: middle;
+  border-radius: 40px;
+  font-size: 25px;
+  color: #666666;
+  background: #ffffff;
+  border: 2px solid #666666;
+  z-index: 30;
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  right: 0;
+  left: 0;
+  top:40%;
+  /*right: 35.3%;*/
+}
+
+.popupo button:hover {
+  border: 1px solid #666666;
+  background: #666666;
+  color: #ffffff;
+  z-index: 30;
+}
+
+
+
+
+.header2 {
+  padding: 20px 20px;
+  background: #555;
+  color: #f1f1f1;
+}
+
+
+/*-------------------------------------------------------------------------------------------------------
+Popup for name */
+
+
+
+
+
+
+.popupo2 .popup-overlay2 {
+  /*Hides pop-up when there is no "active" class*/
+  visibility: hidden;
+  position: fixed;
+  background: #ffffff;
+  border: 3px solid #666666;
+  width: 100%;
+  height: 100%;
+  
+  z-index: 30;
+}
+
+
+
+.popupo2 .popup-overlay2.active {
+  /*displays pop-up when "active" class is present*/
+  visibility: visible;
+  text-align: center;s
+  z-index: 30;
+}
+
+.popupo2 .popup-content2 {
+  /*Hides pop-up content when there is no "active" class */
+  visibility: hidden;
+  z-index: 30;
+}
+
+.popupo2 .popup-content2.active {
+  /*Shows pop-up content when "active" class is present */
+  visibility: visible;
+  z-index: 30;
+}
+
+.popupo2 button {
+  display: inline-block;
+  vertical-align: middle;
+  horizontal-align: middle;
+  border-radius: 40px;
+  font-size: 25px;
+  color: #666666;
+  background: #ffffff;
+  border: 2px solid #666666;
+  z-index: 30;
+  width: 250px;
+  height: 70px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  right: 0;
+  left: 0;
+  top:40%;
+  /*right: 35.3%;*/
+}
+
+.popupo2 button:hover {
+  border: 1px solid #666666;
+  background: #666666;
+  color: #ffffff;
+  z-index: 30;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* W3 school code for CSS styling */
+
+.namediv input[type=text], select {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.namediv input[type=submit] {
+  width: 90%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.namediv input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.namediv {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  top: 20%;
+  right: 0;
+  left: 0;
+  width:60%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+  
+
+.newbuttonclass {
+  font-family: 'Indie Flower', cursive;
+  border-radius: 20px;
+  font-size: 20px;
+  color: #666666;
+  background: #ffffff;
+  border: 10px solid #ffffff;
+  /*width: 200;
+  height: 500;*/
+}
+
+
+
+.newbuttonclass:hover {
+  border: 11px solid #ffffff;
+  background: #ffffff;
+  color: #000000;
+  z-index: 30;
+}
+
+
+
+/* CALENDAR */
+
+
+
+
+
+h2 {
+  font-size: 2em;
+  line-height: 1.25em;
+  margin: .25em 0;
+}
+
+h3 {
+  font-size: 1.5em;
+  line-height: 1em;
+  margin: .33em 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.container {
+  position: absolute;
+  left: 60%;
+  top: 10%;
+
+
+  height: 538px;
+
+  width: 510px;
+  background: #f9f9f9;
+  color: #0e171c;
+  font: 300 100%/1.5em 'Lato', sans-serif;
+  margin: 1px;
+}
+
+
+
+
+
+/* ---------- CALENDAR ---------- */
+
+.calendar {
+  position: relative;
+  left: 3%;
+  text-align: center;
+}
+
+.calendar header {
+  position: relative;
+}
+
+.calendar h2 {
+  text-transform: uppercase;
+}
+
+.calendar thead {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.calendar tbody {
+  color: #7c8a95;
+}
+
+.calendar tbody td:hover {
+  border: 2px solid #00addf;
+}
+
+.calendar td {
+  border: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  height: 4em;
+  line-height: 4em;
+  text-align: center;
+  width: 4em;
+}
+
+.calendar .prev-month,
+.calendar .next-month {
+  color: #cbd1d2;
+}
+
+.calendar .prev-month:hover,
+.calendar .next-month:hover {
+  border: 2px solid #cbd1d2;
+}
+
+.current-day {
+  background: #00addf;
+  color: #f9f9f9;
+}
+
+.event {
+  cursor: pointer;
+  position: relative;
+}
+
+.event:after {
+  background: #00addf;
+  border-radius: 50%;
+  bottom: .5em;
+  display: block;
+  content: '';
+  height: .5em;
+  left: 50%;
+  margin: -.25em 0 0 -.25em;
+  position: absolute;
+  width: .5em;
+}
+
+.event.current-day:after {
+  background: #f9f9f9;
+}
+
+
+
+
+
+
+
+</style>
+
+
+</head>
+
+
+<body> 
+
+
+
+<div class="header2" id="myHeader">
+  <h2 id = "header1">Task List</h2>
+  <br>
+  <button class = "newbuttonclass" onclick = "changename();">Change Name</button>
+  <br>
+  <br>
+  <br>
+  <button class = "newbuttonclass" onclick = "setNegative();">Dark Mode</button>
+  <br>
+  <br>
+  <br>
+  <button class = "newbuttonclass" onclick = "reorderpls();" id = "reorderbutton">Move Task to Bottom</button>
+  <br>
+  <br>
+  <br>
+  <button class = "newbuttonclass" onclick = "getuserid();">Get Student Code</button>
+  <br>
+  <br>
+  <br>
+  <button class = "newbuttonclass" onclick = "MANAGE();" id = "managerbutton">Manage a Student</button>
+  <br>
+  <br>
+  <br>
+  <button class = "newbuttonclass" onclick = "signout();">Log Out</button>
+</div>
+
+
+
+
+
+
+
+
+<div class = "popupo">
+<div class="popup-overlay">
+  <!--Creates the popup content-->
+  <div class="popup-content">
+    <!--popup's close button-->
+
+    <br>
+    <br>
+    <div class = 'namediv'>
+      <form action="/action_page.php">
+        <label for="fname">Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+      </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <button class="close" onclick="signin();">Login</button> </div>
+</div>
+</div>
+
+
+
+
+
+
+<div class = "popupo2">
+<div class="popup-overlay2">
+  <!--Creates the popup content-->
+  <div class="popup-content2">
+    <!--popup's close button-->
+
+    <br>
+    <br>
+    <div class = 'namediv'>
+      <form action="/action_page.php">
+        <label for="fname">New Name</label>
+        <input type="text" id="changednameString" name="firstname" placeholder="Your name..">
+      </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <button class="close" onclick="changenamept2();">Change Name</button> </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="all">
+  <div class="head task--roww">Tasks to do~ (Hold to remove)</div>
+  <form action="">
+    
+
+<div class="task__list">
+ 
+    </div>
+      <div class="task--roww task__bottom">
+    <input class="boop" type="text" value="+ add new task">
+  </div>
+  </form>
+</div>
+
+
+
+<!--
+<button onclick="getData()">qwefweijfioeww</button>
+-->
+
+
+
+
+
+
+
+
+  <div class="container">
+
+    <div class="calendar">
+
+      <header>        
+
+        <h2 id = "monthmyheadphonesdontwork">September</h2>
+
+      </header>
+      
+      <table id = 'idiottable'>
+      
+        <thead>
+          <p>Click on a day to Add/Remove a due date</p>
+          <tr>
+            
+            <td>Su</td>
+            <td>Mo</td>
+            <td>Tu</td>
+            <td>We</td>
+            <td>Th</td>
+            <td>Fr</td>
+            <td>Sa</td>
+
+          </tr>
+
+        </thead>
+
+        <tbody id = "calchange">
+           
+          <tr>
+            <td id = "00"></td>
+            <td id = "01"></td>
+            <td id = "02"></td>
+            <td id = "03"></td>
+            <td id = "04"></td>
+            <td id = "05"></td>
+            <td id = "06"></td>
+          </tr>
+          <tr>
+            <td id = "10">x</td>
+            <td id = "11">x</td>
+            <td id = "12">x</td>
+            <td id = "13">x</td>
+            <td id = "14">x</td>
+            <td id = "15">x</td>
+            <td id = "16">x</td>
+          </tr>
+          <tr>
+            <td id = "20">x</td>
+            <td id = "21">x</td>
+            <td id = "22">x</td>
+            <td id = "23">x</td>
+            <td id = "24">x</td>
+            <td id = "25">x</td>
+            <td id = "26">x</td>
+          </tr>
+          <tr>
+            <td id = "30">x</td>
+            <td id = "31">x</td>
+            <td id = "32">x</td>
+            <td id = "33">x</td>
+            <td id = "34">x</td>
+            <td id = "35">x</td>
+            <td id = "36">x</td>
+          </tr>
+
+          <tr>
+            <td id = "40"></td>
+            <td id = "41"></td>
+            <td id = "42"></td>
+            <td id = "43"></td>
+            <td id = "44"></td>
+            <td id = "45"></td>
+            <td id = "46"></td>
+          <tr>
+            <td id = "50"></td>
+            <td id = "51"></td>
+            <td id = "52"></td>
+            <td id = "53"></td>
+            <td id = "54"></td>
+            <td id = "55"></td>
+            <td id = "56"></td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div> <!-- end calendar -->
+
+  </div> <!-- end container -->
+
+
+
+<button></button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+//console.log(localStorage);
+
+
+
+obhect = {}; // obhect is the one that is changed and updated throughout 
+emptyobhect = {}; // empty object for testing purposes
+max = 0; // this is the max key value in the firebase - to prevent overlapping (same keys)
+
+
+dateobhect = { // basic dateobhect
+  1: 0,
+  2: 0, 
+  3: 0, 
+  4: 0, 
+  5: 0, 
+  6: 0, 
+  7: 0, 
+  8: 0, 
+  9: 0, 
+  10: 0, 
+  11: 0, 
+  12: 0, 
+  13: 0, 
+  14: 0, 
+  15: 0, 
+  16: 0, 
+  17: 0, 
+  18: 0, 
+  19: 0, 
+  20: 0, 
+  21: 0, 
+  22: 0, 
+  23: 0, 
+  24: 0, 
+  25: 0, 
+  26: 0, 
+  27: 0, 
+  28: 0, 
+  29: 0, 
+  30: 0, 
+  31: 0
+}
+
+
+
+// the keys and values of the object (in firebase)
+taskvalues = [];
+indexes = [];
+
+
+// name data
+name = "";
+
+
+// reorder = yes, true, --> reorder = no, false, regular mode
+var reorder;
+reorder = "no";
+
+
+darkmode = 0;
+
+
+
+// config
+
+  userId = "";
+ // Your web app's Firebase configuration
+  var config = {
+    apiKey: "AIzaSyD8q3F3Mec36PpmhJShlbYGQbOnu37fSaY",
+    authDomain: "ics3u-lz.firebaseapp.com",
+    databaseURL: "https://ics3u-lz.firebaseio.com",
+    projectId: "ics3u-lz",
+    storageBucket: "ics3u-lz.appspot.com",
+    messagingSenderId: "655050018227",
+    appId: "1:655050018227:web:7abd10fea73fb5c88a8fc6",
+    measurementId: "G-B0JZDN0K0N"
+    
+    
+    };
+  firebase.initializeApp(config);
+
+  firebase.auth().onAuthStateChanged(function(user) {
+            if (user == null) {
+                $(".popup-overlay, .popup-content").addClass("active"); // if not logged in, display login page
+                //document.getElementById("uid").innerHTML = "not logged in";
+                return;
+            } else {
+
+
+                if(sessionStorage.studentname == null){
+                  userId = user.uid;
+                }
+                else {
+                  userId = sessionStorage.studentname;
+                  //console.log(sessionStorage.studentname);
+                  document.getElementById("managerbutton").innerHTML = "Exit student list";
+                  document.getElementById("managerbutton").onclick = exitstudentlist;
+                  $('body').css('background-image', 'linear-gradient(to top right, #c2e59c, #64b3f4');
+                }
+
+                
+                $(".popup-overlay, .popup-content").removeClass("active"); // make sure popup pages are closed
+                $(".popup-overlay2, .popup-content2").removeClass("active"); 
+                name = localStorage.getItem("name");
+                getData(); // if logged in, (wont display login page), and automatically display existing tasks
+
+                loadCalendar(); // automatically display existing calendar events 
+            } // end user null check
+        }); // end check auth state
+
+
+/*
+firebase.database().ref('/' + userId).push({
+s
+  obhect
+  
+
+}); 
+*/
+
+
+
+
+
+
+
+
+
+
+  $('.boop').on('focus',function(){ // this refreshes the input bar (no text on when clicked)
+    $(this).val('');
+  });
+
+  $('.boop').on('blur',function(){ // preset text for input section 
+    $(this).val('+ add new task'); 
+  });
+
+
+
+
+//____________________________________________________________________________________________________
+// writing a new task
+
+
+
+
+
+
+  $('form').on('submit', function(event){
+
+    event.preventDefault();
+    
+    var taskText = $('.boop').val(); // value of input bar = task text in this variable
+    var localindex = $('.task').length + 1;  // local index of the page 
+    var index = localindex + max; // index of the tasks (not local = including firebase indexes)
+    
+    var taskHTML = '<label for="task--' + localindex + '" class="task task--new"><input class="task__check" type="checkbox" id="task--' + localindex + '" /> <div class="box task--roww" id = ' + index + '>' + taskText + '<button><i class="fa fa-check" aria-hidden="true"></i></button></div></label>'
+      // this writes in a new task (code)
+    
+    $('.task__list').append(taskHTML); // add the new task
+
+    $('.boop').val(''); // add 0
+    checkList(); // calls the checklist function, see below
+
+
+    obhect[index] = taskText;
+    //Object.assign(obhect, {: taskText});
+
+    taskvalues.push(taskText);
+    indexes.push(index);
+
+
+
+
+    //document.getElementById("myName").innerHTML = x;
+    firebase.database().ref('/q' + userId).set({
+
+        "name": name, 
+        obhect
+
+
+    }); 
+    update();
+
+
+
+  });
+
+
+  var lastDeletedTask = '';
+
+
+
+
+
+
+
+
+//__________________________________________________________________________________________
+// this is where it senses to delete tasks, reorder
+
+
+
+
+  function checkList() {
+    
+    
+    $('.task').each(function(){
+
+      var $field = $(this).find('.box');
+      var mousedown = false;
+
+
+      $field.on('mousedown', function(){
+          mousedown = true;
+          $field.addClass('shaking');
+
+
+
+          if(reorder == "no") {
+            setTimeout(kill,1000)
+          }
+          else if (reorder == "yes") {
+            setTimeout(movetobottom,1000)
+          }
+          
+      });
+
+      $field.on('mouseup', function(){
+          mousedown = false;
+          $field.removeClass('shaking');
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      function kill(){
+        if(mousedown) {
+          $field.addClass('delete');
+          lastDeletedTask = $field.text();
+          //lastDeletedIndex = $field.();
+          
+          //console.log(lastDeletedTask);
+
+          update();
+          //lastDeletedIndexString = $field.attr('id');
+          //console.log("class of deleted: " + lastDeletedIndexString)
+
+
+          //q = firebase.database().ref('/' + userId);
+          //q.remove()
+
+          //console.log(lastDeletedTask);
+
+
+
+
+          // delete from databse 
+          //taskvalues = Object.values(obhect); // establishes taskvalues as a single array of task names
+          //indexes = Object.keys(obhect);     // establishes indexes as a single array of all task indexes
+          //console.log(taskvalues);
+          //console.log(indexes);
+
+
+
+          var indexofdeleted = taskvalues.indexOf(lastDeletedTask);
+          var indextodelete = indexes[indexofdeleted];
+          console.log("deleting: "  + indextodelete);
+
+
+          delete indexes[indextodelete];
+          delete taskvalues[indextodelete];
+
+          deleteplease();
+          deleteplease();
+
+          function deleteplease() {
+            delete obhect[indextodelete];
+            firebase.database().ref('/q' + userId).set({
+                "name": name, 
+                obhect
+            }); 
+            update();
+          } 
+          
+ 
+
+          // doublecheck, sometimes doesn't work if indexes aren't ordered
+          if (taskvalues.includes(lastDeletedTask) == true) {
+            indexofdeleted = taskvalues.indexOf(lastDeletedTask);
+            indextodelete = indexes[indexofdeleted];
+            delete indexes[indextodelete];
+            delete taskvalues[indextodelete];
+            deleteplease(); 
+          }
+
+
+
+          
+
+          setTimeout(function(){
+             $field.remove();
+          }, 200);
+         } 
+         else {return}
+      }
+
+
+
+
+
+
+
+function movetobottom(){
+
+          $field.addClass('delete');
+          lastDeletedTask = $field.text();
+          // SAME AS KILL FUNCTION, BUT SWAP WITH LAST PLACE INSTEAD
+
+          update();
+
+          var indexofdeleted = taskvalues.indexOf(lastDeletedTask);
+          var indextodelete = indexes[indexofdeleted];
+          console.log("changing: "  + indextodelete);
+
+
+          delete indexes[indextodelete];
+          indexes[indexes.length + 1000] = lastDeletedTask;
+          delete taskvalues[indextodelete];
+          taskvalues[taskvalues.length +1000 ] = lastDeletedTask;
+
+          if(obhect[indexes.length + 999] == lastDeletedTask) {
+              location.reload();
+          }
+          else {
+          deleteplease();
+          }
+
+          function deleteplease() {
+            if(obhect[indexes.length + 999] == lastDeletedTask) {
+              location.reload();
+            }
+            delete obhect[indextodelete];
+            obhect[indexes.length + 1000] = lastDeletedTask;
+            firebase.database().ref('/q' + userId).set({
+                "name": name, 
+                obhect
+            }); 
+            update();
+            location.reload();
+          } 
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+  checkList();
+  
+
+
+
+//______________________________________________________________________________________________________________
+// this function will be the login button function to read data from the database, write it onto the list, and add it to the local object | also sets the index
+
+
+
+
+
+
+        function getData() {
+
+
+          function callback1() {
+            document.getElementById("header1").innerHTML = name + "'s Task List";
+          }
+
+
+
+          document.getElementById("header1").innerHTML = name + "'s Task List";
+
+          q = {};
+          w = [];
+          //var userId = document.getElementById("uid").innerHTML;
+          firebase.database().ref('/q' + userId).once('value', function(snapshot) {
+            //q = snapshot.val().obhect;
+            //document.getElementById("myData").innerHTML = q["email"];
+            //console.log(snapshot.val().obhect);
+
+            w = snapshot.val().obhect;   // takes down the object into a local variable 
+            name = snapshot.val().name;
+            taskvalues = Object.values(w); // establishes taskvalues as a single array of task names
+            indexes = Object.keys(w);     // establishes indexes as a single array of all task indexes
+            //console.log(taskvalues);
+            //console.log(indexes);
+
+            //obhect = snapshot.val().obhect; // adds the database info into the local object
+            //console.log(obhect);
+
+            /*for (i = 0; i < indexes.length-1; i++) {
+              obhect[indexes[i]] = taskvalues[i];
+            }
+            console.log(obhect);*/
+
+
+            /*Object.keys(obhect).forEach(function (key) {
+              console.log(obhect);
+              writetask(obhect, 1);
+            }); */
+
+
+
+
+
+
+            indexmax = [];
+
+
+
+
+
+
+
+
+              // the following block writes all the tasks in the database so far
+              taskvalues.forEach(writetask);
+
+
+              function writetask(item, index) {
+
+                if (item == "deleted") {
+                  console.log("oops")
+                } else {
+                var taskHTML = '<label for="task--' + index + '" class="task task--new"><input class="task__check" type="checkbox" id="task--' + index + '" /> <div class="box task--roww">' + item + '<button ><i class="fa fa-check" aria-hidden="true"></i></button></div></label>'               
+                $('.task__list').append(taskHTML); // add the new task
+     
+                obhect[index] = item;
+                indexmax.push(index);
+                
+                checkList(); // calls the checklist function, see below
+                //console.log(obhect);
+
+                }
+
+                firebase.database().ref('/q' + userId).set({
+
+                          "name": name, 
+                          obhect
+
+
+                }); 
+
+
+
+              
+
+
+
+
+
+
+
+            }
+
+              // get largest number
+              max = indexmax.reduce(function(a, b) {
+                  return Math.max(a, b);
+              });
+              //console.log(max);
+
+
+              callback1();
+
+          });
+
+
+
+
+        }
+       
+
+
+
+
+
+
+
+
+
+
+//______________________________________________________________________________________________________________
+// functions preprovided, may be modified 
+
+
+       // HERE IS THE FUNCTION TO SHOW HOW TO SET/OVERWRITE USER DATA
+        function setData() {
+          
+          //var x = document.getElementById("newName").value;
+          //var x_email = x + "@gmail.com"
+
+          //document.getElementById("myName").innerHTML = x;
+          firebase.database().ref('/(w)q' + userId).set({
+
+            teacher: {
+              email: x_email, 
+              name: x
+            }
+            
+
+          }); 
+        }
+        
+
+
+
+
+
+        function signin() {
+
+
+          name = document.getElementById('fname').value;
+
+
+          if(name.length > 10) {
+            alert("Name Too Long! Must be Ten Characters or Under")
+          } else {
+            
+          
+            $(".popup-overlay, .popup-content").removeClass("active");
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithRedirect(provider).then(function(result) { 
+                window.location.replace("fbtest.html");
+            });
+            
+            //document.getElementById('header1').innerHTML = name + "'s task list";
+            localStorage.setItem("name", name);
+        }
+
+      }
+
+
+        function signout() {
+            firebase.auth().signOut();
+        }
+
+
+
+//______________________________________________________________________________________________________________
+// updates all the arrays that are needed 
+
+
+function update() {
+          firebase.database().ref('/q' + userId).once('value', function(snapshot) {
+            //q = snapshot.val().obhect;
+            //document.getElementById("myData").innerHTML = q["email"];
+            //console.log(snapshot.val().obhect);
+
+            w = snapshot.val().obhect;   // takes down the object into a local variable 
+            taskvalues = Object.values(w); // establishes taskvalues as a single array of task names
+            indexes = Object.keys(w);     // establishes indexes as a single array of all task indexes
+
+
+
+
+
+          });
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+function changename() {
+  $(".popup-overlay2, .popup-content2").addClass("active");
+}
+
+
+
+
+function changenamept2() {
+
+
+
+  function callbackCN() {
+    document.getElementById("header1").innerHTML = name + "'s Task List";
+    $(".popup-overlay2, .popup-content2").removeClass("active"); 
+  }
+
+
+
+
+
+  name = document.getElementById('changednameString').value;
+  
+  if(name.length > 10) {
+    alert("Name Too Long! Must be Ten Characters or Under")
+  } else {
+    firebase.database().ref('/q' + userId).set({
+
+          "name": name, 
+          obhect
+
+
+    }); 
+    callbackCN();
+  }
+  
+
+
+
+
+}
+
+
+
+//-------------------------------------------------------------------------------------------
+// date object javascript, algorithms
+
+
+Date.prototype.myMet = function() {
+  if (this.getMonth() == 0){this.mymonth = "January"};
+  if (this.getMonth() == 1){this.mymonth = "February"};
+  if (this.getMonth() == 2){this.mymonth = "March"};
+  if (this.getMonth() == 3){this.mymonth = "April"};
+  if (this.getMonth() == 4){this.mymonth = "May"};
+  if (this.getMonth() == 5){this.mymonth = "June"};
+  if (this.getMonth() == 6){this.mymonth = "July"};
+  if (this.getMonth() == 7){this.mymonth = "August"};
+  if (this.getMonth() == 8){this.mymonth = "September"};
+  if (this.getMonth() == 9){this.mymonth = "October"};
+  if (this.getMonth() == 10){this.mymonth = "November"};
+  if (this.getMonth() == 11){this.mymonth = "December"};
+
+  if (this.getMonth() == 0){this.monthlimit = 31};
+  if (this.getMonth() == 1){this.monthlimit = 28};
+  if (this.getMonth() == 2){this.monthlimit = 31};
+  if (this.getMonth() == 3){this.monthlimit = 30};
+  if (this.getMonth() == 4){this.monthlimit = 31};
+  if (this.getMonth() == 5){this.monthlimit = 30};
+  if (this.getMonth() == 6){this.monthlimit = 31};
+  if (this.getMonth() == 7){this.monthlimit = 31};
+  if (this.getMonth() == 8){this.monthlimit = 30};
+  if (this.getMonth() == 9){this.monthlimit = 31};
+  if (this.getMonth() == 10){this.monthlimit = 30};
+  if (this.getMonth() == 11){this.monthlimit = 31};
+  // this.getDate(); returns 1-31 day
+
+  // this.getDay(); returns 0-6 weekday (sun-sat)
+
+
+};
+
+
+
+
+
+
+
+var d = new Date();
+d.myMet();
+console.log(d.mymonth);
+document.getElementById("monthmyheadphonesdontwork").innerHTML = d.mymonth;
+firstdayy(); // this changes d.firstday to the weekday of the first row that is day #1
+writedays();
+
+
+
+
+
+
+
+
+
+
+// Algorithm to get the first day of the month 
+
+// thought process leoooo 
+// algorithm --> day # % 7 returns the day # that appears earliest same weekday
+// e.g if 27 % 7 = 6 and 27th is on a thursday, this means the first thursday of the month is the 6th
+
+// Take the Weekday (0-6, sun-sat) and subtract it by (Resulting Day # from before, minus 1)
+
+// If the result is negative, this means that the 'earliest weekday # is on the second row of the calendar'
+//    if its negative, do 7+negative to get the weekday of day #1 of the month (in the first row)
+// If the result is positive, this means that all numbers after the first are in the first row ]
+//    if its positive, that number is the weekday of day #1 of the month (in the first row)
+
+
+
+
+// e.g
+/*
+If it is Month 17th, Friday 
+17 Modulo 7 means that the first friday of the month is the 3rd 
+17%7=3
+Take Friday (5) and subtract [day # (3) minus 1]
+5-[3-1] = 3
+3 is positive, so this means day 1 of the month is wednesday 
+
+If it is Month 17th, Sunday 
+17 Modulo 7 means that the first Sunday of the month is the 3rd 
+17%7=3 
+Take Sunday (0) and subtract [day # (3) minus 1]
+0-[3-1] = -2 
+-2 is negative, so we add 7 to it --> 7 + (-2) = 5
+5 is the result, so the first day of the month is Friday 
+
+*/
+
+
+function firstdayy() {
+  var weekday = d.getDay();
+  var daynumber = d.getDate();
+  var temp = 0;
+  var temp2 = 0;
+
+  temp = daynumber % 7;
+  //console.log('modulo: ' + temp);
+  temp2 = weekday - (temp - 1);
+  //console.log('tempday: ' + temp2);
+  if(temp2 >= 0) {
+    d.firstday = temp2;
+  }
+  else if(temp2 < 0) {
+    temp = temp2 + 7;
+    d.firstday = temp2 + 7;
+  }
+  else {
+    console.log('ERROR WITH FIRST DAY');
+  }
+  //console.log(d.firstday);
+}
+
+
+
+
+
+
+
+
+function writedays() {
+  var tempday = 1;
+  var firsttime = true;
+  var calendarindexid = 0;
+
+
+  for (i = 1; i <= 6; i++) {
+    //console.log('i loop');
+
+    for(j = 0; j <= 6; j++) {
+
+      if(tempday >= d.monthlimit + 1) {// breaks if more than month day limit, change to day limit
+        i = 300;
+        break;
+      }
+
+      //console.log('j loop');
+      if(firsttime == true) {// determines which first day
+        j = d.firstday;
+        firsttime = false;
+      }
+      //calendarindexid = (10*i) + (j);
+      //document.getElementById('18').innerHTML = tempday;
+      //onsole.log("calendar id: "+  calendarindexid);
+      //console.log(tempday);
+
+      var badtable = document.getElementById('idiottable');
+      badtable.rows[i].cells[j].innerHTML = tempday;
+
+      //console.log(d.getDay());
+      if (d.getDate() == tempday) { // sets today as the class with current
+        badtable.rows[i].cells[j].classList.add("current-day"); // class for event is 'event'
+      }
+
+      // REMINDER: d.getday(); GIVES THE WEEKDAY SUN-SAT, d.getDate(); GIVES THE DAY # OF THE MONTH 1-31
+      // add one for events, same as the above classList.add thing for the current day
+
+      tempday ++;
+
+
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+//-------------------------------------------------------------------------------------------
+
+
+
+function reorderpls() {
+  
+ 
+  if (reorder == "yes") {
+    reorder = "no";
+    alert("Hold down on a task to delete it");
+    document.getElementById("reorderbutton").innerHTML = "Move Task to Bottom";
+
+  } else {
+    reorder = "yes";
+    alert("Hold down on a task to move it to the bottom of the list.")
+    document.getElementById("reorderbutton").innerHTML = "Back to Delete Tasks";
+  }
+}
+
+
+
+
+
+//-----------------------------------------------------------------------------------------
+
+
+
+var table = document.getElementById("idiottable");
+if (table != null) {
+    for (var i = 0; i < table.rows.length; i++) {
+        for (var j = 0; j < table.rows[i].cells.length; j++)
+        table.rows[i].cells[j].onclick = function () {
+            tableText(this);
+        };
+    }
+}
+
+function tableText(tableCell) {
+  if (tableCell.className == "event") {
+    tableCell.classList.remove("event");
+  }
+
+  else {
+    tableCell.classList.add("event");
+  }
+  alert("modified date for: "+ d.mymonth + " " +  tableCell.innerHTML );
+
+  if(dateobhect[tableCell.innerHTML] == 0) {
+    dateobhect[tableCell.innerHTML] = 1;
+  } 
+  else {
+    dateobhect[tableCell.innerHTML] = 0;
+  }
+
+  
+
+  firebase.database().ref('/date' + userId).set({
+    dateobhect
+  }); 
+
+
+
+}
+
+
+function loadCalendar() {
+    firebase.database().ref('/date' + userId).once('value', function(snapshot) {
+            dateobhect = snapshot.val().dateobhect;   // takes down the object into a local variable 
+            dateobhect.forEach(writeCalendar);
+
+
+            function writeCalendar(item, index) {
+              //console.log(index + ": " + item);
+              var tempday = 0;
+              if(item == 1) {
+                // FIND GRID (INNERHTML = INDEX), ADD CLASS EVENT
+
+
+    for (i = 1; i <= 6; i++) {
+      //console.log('i loop');
+
+
+      for(j = 0; j <= 6; j++) {
+
+
+
+        var badtable = document.getElementById('idiottable');
+
+        
+        //console.log(d.getDay());
+        if (badtable.rows[i].cells[j].innerHTML == index) { // sets today as the class with current CUPHOLDER
+
+          badtable.rows[i].cells[j].classList.add("event"); // class for event is 'event'
+          i = 10;
+          j = 10;
+        }
+
+        tempday ++;
+
+
+      }
+    }
+
+
+
+
+
+
+
+
+
+              }
+              else {
+                console.log();
+              }
+
+            }
+
+
+
+    });
+}
+
+
+
+
+
+//-----------------------------------------------------------------------------------------
+
+
+function setNegative() {
+  if(darkmode == 0) {
+    $('body').css('background-image', 'linear-gradient(to top right, #434343, #000000');
+    darkmode = 1;
+  }
+  else if(darkmode == 1) {
+    $('body').css('background-image', 'linear-gradient(to top right, #A82A71, #4C61B0');
+    darkmode = 0;
+  }
+}
+
+
+function getuserid() {
+  alert("Your student code is: " + userId);
+}
+
+
+
+var code = userId;
+
+function MANAGE() {
+  var code;
+  var person = prompt("Please enter Student Code:", "");
+  if (person == null || person == "") {
+    alert("Please enter a code!");
+  } else {
+    code = person;
+    sessionStorage.studentname = code;
+    console.log(sessionStorage.studentname);
+    location.reload();
+  }
+}
+
+
+function exitstudentlist() {
+  sessionStorage.removeItem("studentname");
+  location.reload();
+}
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
