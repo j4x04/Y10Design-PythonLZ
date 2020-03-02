@@ -511,6 +511,10 @@ table {
   <br>
   <br>
   <br>
+  <button class = "newbuttonclass" onclick = "MANAGE2();" id = "managerbutton2">Personal List</button>
+  <br>
+  <br>
+  <br>
   <button class = "newbuttonclass" onclick = "signout();">Log Out</button>
 </div>
 
@@ -815,15 +819,29 @@ darkmode = 0;
             } else {
 
 
-                if(sessionStorage.studentname == null){
-                  userId = user.uid;
+                if(sessionStorage.studentname == null && sessionStorage.customlist == null){
+                    userId = user.uid;
                 }
-                else {
+                else if (sessionStorage.studentname != null && sessionStorage.customlist == null){
                   userId = sessionStorage.studentname;
                   //console.log(sessionStorage.studentname);
-                  document.getElementById("managerbutton").innerHTML = "Exit student list";
+                  document.getElementById("managerbutton").innerHTML = "Exit external list";
+                  document.getElementById("managerbutton2").innerHTML = "Exit external list";
                   document.getElementById("managerbutton").onclick = exitstudentlist;
+                  document.getElementById("managerbutton2").onclick = exitstudentlist;
                   $('body').css('background-image', 'linear-gradient(to top right, #c2e59c, #64b3f4');
+                }
+                else if (sessionStorage.customlist != null && sessionStorage.studentname == null) {
+                  userId = user.uid + sessionStorage.customlist;
+                  //console.log(sessionStorage.studentname);
+                  document.getElementById("managerbutton").innerHTML = "Exit external list";
+                  document.getElementById("managerbutton2").innerHTML = "Exit external list";
+                  document.getElementById("managerbutton").onclick = exitstudentlist;
+                  document.getElementById("managerbutton2").onclick = exitstudentlist;
+                  $('body').css('background-image', 'linear-gradient(to top right, #c2e59c, #64b3f4');
+                }
+                else{
+                  exitstudentlist();
                 }
 
                 
@@ -1711,23 +1729,47 @@ function getuserid() {
 var code = userId;
 
 function MANAGE() {
-  var code;
   var person = prompt("Please enter Student Code:", "");
   if (person == null || person == "") {
     alert("Please enter a code!");
   } else {
     code = person;
     sessionStorage.studentname = code;
-    console.log(sessionStorage.studentname);
+    //console.log(sessionStorage.studentname);
     location.reload();
   }
 }
 
 
+
+function MANAGE2() {
+  var person = prompt("Please enter list name to access/create personal list:", "e.g Homework List");
+  if (person == null || person == "") {
+    alert("Please enter a list name!");
+  } else {
+    code = person;
+    sessionStorage.setItem('customlist', code);
+    //console.log(sessionStorage.studentname);
+    location.reload();
+  }
+}
+
+
+
+
+
+
+
+
+
 function exitstudentlist() {
   sessionStorage.removeItem("studentname");
+  sessionStorage.removeItem("customlist");
   location.reload();
 }
+
+
+
 
 
 
