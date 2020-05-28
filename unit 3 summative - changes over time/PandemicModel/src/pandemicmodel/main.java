@@ -30,7 +30,8 @@ public class main {
         
         // ALL other JAVA files are TESTING/NOT USED IN MAIN METHOD
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        
+        java.awt.EventQueue.invokeLater(new Runnable() { // this runs the input GUI: Inpt.java
             public void run() {
                 new Inpt().setVisible(true);
             }
