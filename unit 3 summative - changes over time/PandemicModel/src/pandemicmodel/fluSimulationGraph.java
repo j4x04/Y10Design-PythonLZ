@@ -31,9 +31,9 @@ import java.awt.Font;
 
 import java.util.*;
 
-public class finalGraph extends JFrame {
+public class fluSimulationGraph extends JFrame {
 
-    public finalGraph() {
+    public fluSimulationGraph() {
 
         initUI();
     }
@@ -60,9 +60,8 @@ public class finalGraph extends JFrame {
         XYSeries I = new XYSeries("Infected");
         XYSeries R = new XYSeries("Recovered");
         
-        PandemicModel flu = new PandemicModel(37590000, 37460975, 81277, 47748, 1.75, 0.5); //COVID
-        //PandemicModel flu = new PandemicModel(1000, 999, 1, 0, 0.29, 0.15); // ACTUAL FLU
-        flu.simulateDays(35);
+        PandemicModel flu = new PandemicModel(1000, 999, 1, 0, 0.29, 0.15); // ACTUAL FLU
+        flu.simulateDays(125);
         ArrayList<dayStats> model = flu.getModel();
         
         for(int i = 0; i<model.size(); i++) {
@@ -130,7 +129,7 @@ public class finalGraph extends JFrame {
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
-            finalGraph ex = new finalGraph();
+            fluSimulationGraph ex = new fluSimulationGraph();
             ex.setVisible(true);
         });
     }

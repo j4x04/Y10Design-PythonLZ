@@ -16,21 +16,25 @@ public class main {
     
     public static void main(String [] args) {
         
+        // main: main method. 
+        // Inpt: JAVA INPUT FRAME, TAKES INPUT 
         
+        // PandemicModel: OBJECT THAT CONTAINS MAIN SIMULATION PROCESS
+        // dayStats: OBJECT (ARRAYLIST) THAT STORES ALL DATA 
         
+        // fluSimulationGraph: DISPLAYS FLU SIM
+        // measlesSimulationGraph: DISPLAYS MEASLES SIM
+        // covidSimulationGraph: DISPLAYS COVID SIM 
+        // flattenTheCurve: DISPLAYS COVID FLATTENING CURVE 
+        // customSim: DISPLAYS CUSTOM SITUATION SIMULATION
         
-        EventQueue.invokeLater(() -> {
-            finalGraph ex = new finalGraph();
-            ex.setVisible(true);
+        // ALL other JAVA files are TESTING/NOT USED IN MAIN METHOD
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Inpt().setVisible(true);
+            }
         });
-        
-        
-        
-        
-        
-       
-        
-        
         
         
     }

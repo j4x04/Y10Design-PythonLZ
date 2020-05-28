@@ -31,13 +31,19 @@ import java.awt.Font;
 
 import java.util.*;
 
-public class finalGraph extends JFrame {
-
-    public finalGraph() {
-
+public class customSim extends JFrame {
+    private PandemicModel pandemic;
+    
+    
+    
+    public customSim(double S, double I, double R, double B, double Y) {
+        pandemic = new PandemicModel((S + I + R), S, I, R, B, Y); // Creates Pandemic Object
         initUI();
     }
 
+    
+    
+    
     private void initUI() {
 
         XYDataset dataset = createDataset();
@@ -60,10 +66,8 @@ public class finalGraph extends JFrame {
         XYSeries I = new XYSeries("Infected");
         XYSeries R = new XYSeries("Recovered");
         
-        PandemicModel flu = new PandemicModel(37590000, 37460975, 81277, 47748, 1.75, 0.5); //COVID
-        //PandemicModel flu = new PandemicModel(1000, 999, 1, 0, 0.29, 0.15); // ACTUAL FLU
-        flu.simulateDays(35);
-        ArrayList<dayStats> model = flu.getModel();
+        pandemic.simulateDays(100);
+        ArrayList<dayStats> model = pandemic.getModel();
         
         for(int i = 0; i<model.size(); i++) {
             S.add(i, model.get(i).getS());
@@ -127,11 +131,13 @@ public class finalGraph extends JFrame {
         return chart;
     }
 
+    /*
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
-            finalGraph ex = new finalGraph();
+            customSim ex = new customSim();
             ex.setVisible(true);
         });
     }
+*/
 }

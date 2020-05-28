@@ -31,9 +31,9 @@ import java.awt.Font;
 
 import java.util.*;
 
-public class finalGraph extends JFrame {
+public class flattenTheCurve extends JFrame {
 
-    public finalGraph() {
+    public flattenTheCurve() {
 
         initUI();
     }
@@ -56,31 +56,52 @@ public class finalGraph extends JFrame {
 
     private XYDataset createDataset() {
 
-        XYSeries S = new XYSeries("Susceptible");
-        XYSeries I = new XYSeries("Infected");
-        XYSeries R = new XYSeries("Recovered");
+        XYSeries N1 = new XYSeries("Some Social Distancing");
+        XYSeries N2 = new XYSeries("More Social Distancing");
+        XYSeries N3 = new XYSeries("Ideal Situation");
         
-        PandemicModel flu = new PandemicModel(37590000, 37460975, 81277, 47748, 1.75, 0.5); //COVID
+        PandemicModel covid = new PandemicModel(37590000, 37460975, 81277, 47748, 1.4, 0.5); //COVID
+        PandemicModel covid2 = new PandemicModel(37590000, 37460975, 81277, 47748, 0.8, 0.5);
+        PandemicModel covid3 = new PandemicModel(37590000, 37460975, 81277, 47748, 0.3, 0.5);
         //PandemicModel flu = new PandemicModel(1000, 999, 1, 0, 0.29, 0.15); // ACTUAL FLU
-        flu.simulateDays(35);
-        ArrayList<dayStats> model = flu.getModel();
+        covid.simulateDays(40);
+        covid2.simulateDays(40);
+        covid3.simulateDays(40);
+        ArrayList<dayStats> model1 = covid.getModel();
+        ArrayList<dayStats> model2 = covid2.getModel();
+        ArrayList<dayStats> model3 = covid3.getModel();
         
-        for(int i = 0; i<model.size(); i++) {
-            S.add(i, model.get(i).getS());
+        for(int i = 0; i<model1.size(); i++) {
+            N1.add(i, model1.get(i).getI());
         }
-        for(int i = 0; i<model.size(); i++) {
-            I.add(i, model.get(i).getI());
+        for(int i = 0; i<model2.size(); i++) {
+            N2.add(i, model2.get(i).getI());
         }    
-        for(int i = 0; i<model.size(); i++) {
-            R.add(i, model.get(i).getR());
+        for(int i = 0; i<model3.size(); i++) {
+            N3.add(i, model3.get(i).getI());
         } 
+        
+        
+        // printing values 
+        /*
+        for(int q = 0; q<model1.size(); q++) {
+            System.out.print("\n" + q);
+            System.out.print("\t" + model1.get(q).getI());
+            System.out.print("\t" + model2.get(q).getI());
+            System.out.print("\t" + model3.get(q).getI());
+        }
+*/
+        
+        
+        
+        
         
         
         
         XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(S);
-        dataset.addSeries(I);
-        dataset.addSeries(R);
+        dataset.addSeries(N1);
+        dataset.addSeries(N2);
+        dataset.addSeries(N3);
 
         return dataset;
     }
@@ -119,7 +140,7 @@ public class finalGraph extends JFrame {
 
         chart.getLegend().setFrame(BlockBorder.NONE);
 
-        chart.setTitle(new TextTitle("S-I-R MODEL",
+        chart.setTitle(new TextTitle("Flattening the Curve",
                         new Font("Serif", java.awt.Font.BOLD, 18)
                 )
         );
@@ -130,7 +151,7 @@ public class finalGraph extends JFrame {
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
-            finalGraph ex = new finalGraph();
+            flattenTheCurve ex = new flattenTheCurve();
             ex.setVisible(true);
         });
     }

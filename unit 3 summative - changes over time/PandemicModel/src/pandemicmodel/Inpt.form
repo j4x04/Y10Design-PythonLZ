@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Menu class="java.awt.PopupMenu" name="popupMenu1">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="popupMenu1"/>
+      </Properties>
+    </Menu>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <Component id="jPanel1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
+                          <Component id="customSim" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="labelR" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelI" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelS" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelB" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelY" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="fluSim" min="-2" max="-2" attributes="0"/>
+                                      <Component id="measlesSim" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="inputS" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="inputI" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="inputY" min="-2" pref="113" max="-2" attributes="0"/>
+                                      <Component id="inputB" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="inputR" alignment="1" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="flattenTheCurve" min="-2" max="-2" attributes="0"/>
+                                      <Component id="covidSim" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="title" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="title" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelS" min="-2" max="-2" attributes="0"/>
+                      <Component id="inputS" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelI" min="-2" max="-2" attributes="0"/>
+                      <Component id="inputI" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelR" min="-2" max="-2" attributes="0"/>
+                      <Component id="inputR" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelB" min="-2" max="-2" attributes="0"/>
+                      <Component id="inputB" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="inputY" max="32767" attributes="0"/>
+                      <Component id="labelY" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="customSim" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="fluSim" min="-2" max="-2" attributes="0"/>
+                      <Component id="covidSim" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="measlesSim" min="-2" max="-2" attributes="0"/>
+                      <Component id="flattenTheCurve" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="java.awt.TextField" name="inputS">
+        </Component>
+        <Component class="java.awt.TextField" name="inputI">
+        </Component>
+        <Component class="java.awt.TextField" name="inputR">
+        </Component>
+        <Component class="java.awt.TextField" name="inputB">
+        </Component>
+        <Component class="java.awt.TextField" name="inputY">
+        </Component>
+        <Component class="java.awt.Label" name="labelS">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Susceptibles (uninfected): "/>
+          </Properties>
+        </Component>
+        <Component class="java.awt.Label" name="labelI">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Infectives (infected): "/>
+          </Properties>
+        </Component>
+        <Component class="java.awt.Label" name="labelR">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Removed (Recovered/Dead): "/>
+          </Properties>
+        </Component>
+        <Component class="java.awt.Label" name="labelB">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Infection Rate: "/>
+          </Properties>
+        </Component>
+        <Component class="java.awt.Label" name="labelY">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Recovery Rate: "/>
+          </Properties>
+        </Component>
+        <Component class="java.awt.Button" name="customSim">
+          <Properties>
+            <Property name="label" type="java.lang.String" value="Simulate Custom Situation"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customSimActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="java.awt.Label" name="title">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Model Parameter Input"/>
+          </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="title"/>
+          </AccessibilityProperties>
+        </Component>
+        <Component class="java.awt.Button" name="fluSim">
+          <Properties>
+            <Property name="label" type="java.lang.String" value="Simulate Flu"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fluSimActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="java.awt.Button" name="measlesSim">
+          <Properties>
+            <Property name="label" type="java.lang.String" value="Simulate Measles"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="measlesSimActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="java.awt.Button" name="covidSim">
+          <Properties>
+            <Property name="label" type="java.lang.String" value="Simulate COVID-19"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="covidSimActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="java.awt.Button" name="flattenTheCurve">
+          <Properties>
+            <Property name="label" type="java.lang.String" value="See Flattening Curve for COVID"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="flattenTheCurveActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
